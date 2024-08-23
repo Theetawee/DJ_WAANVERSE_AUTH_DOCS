@@ -33,7 +33,7 @@ jobs:
               run: pip install -r requirements.txt
               
             - name: Deploy Documentation
-              run: mike deploy --push --update-aliases --rebase 0.0a1 latest
+              run: mike deploy --push --update-aliases 0.0a1 latest
               
             - name: Set Default Documentation Version
               run: mike set-default latest
