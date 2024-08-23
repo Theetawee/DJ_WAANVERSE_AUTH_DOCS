@@ -72,7 +72,7 @@ extra:
 
     analytics:
         provider: google
-        property: G-XXXXXXXXXX
+        property: G-CP8WX06TVQ
 
     version:
         provider: mike
