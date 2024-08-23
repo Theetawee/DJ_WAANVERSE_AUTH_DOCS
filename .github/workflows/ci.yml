@@ -37,6 +37,8 @@ jobs:
 
             - name: Deploy Documentation
               run: mike deploy --push --update-aliases 0.0a1 stable
+            - name: Delete default version
+              run: mike delete 0.1
 
             - name: Set default version
               run: mike set-default --push stable
