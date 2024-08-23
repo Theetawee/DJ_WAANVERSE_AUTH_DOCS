@@ -86,6 +86,7 @@ extra:
 plugins:
     - privacy
     - search
+    - social
 
 copyright: >
     Copyright &copy; 2024 All rights reserved. Waanverse Labs Inc. –
