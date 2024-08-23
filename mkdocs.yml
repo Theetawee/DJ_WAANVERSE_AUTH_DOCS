@@ -79,6 +79,8 @@ extra:
             - latest
             - stable
             - dev
+        alias: true
+
     social:
         - icon: fontawesome/brands/github
           link: https://github.com/waanverse
