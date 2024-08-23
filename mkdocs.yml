@@ -75,8 +75,6 @@ extra:
 
     version:
         provider: mike
-        alias: true
-        default: stable
 
     social:
         - icon: fontawesome/brands/github
