@@ -36,4 +36,4 @@ jobs:
               run: mike deploy --push --update-aliases 0.0a1 latest
               
             - name: Set Default Documentation Version
-              run: mike set-default latest
+              run: mike set-default 0.0a1
