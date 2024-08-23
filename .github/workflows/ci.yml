@@ -17,7 +17,7 @@ jobs:
                   git config user.email 41898282+github-actions[bot]@users.noreply.github.com
             - uses: actions/setup-python@v5
               with:
-                  python-version: 3.x
+                  python-version: 3.12.1
             - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
             - uses: actions/cache@v4
               with:
@@ -26,5 +26,5 @@ jobs:
                   restore-keys: |
                       mkdocs-material-
             - run: pip install -r requirements.txt
-            - run: mike deploy 0.0a1 latest
+            - run: mike deploy --push --update-aliases 0.0a1 latest
             - run: mike set-default 0.0a1 
