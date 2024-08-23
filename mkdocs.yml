@@ -75,10 +75,6 @@ extra:
 
     version:
         provider: mike
-        default:
-            - latest
-            - stable
-            - dev
         alias: true
 
     social:
