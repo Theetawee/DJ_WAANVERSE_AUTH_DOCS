@@ -36,7 +36,7 @@ jobs:
               run: pip install -r requirements.txt
 
             - name: Deploy Documentation
-              run: mike deploy --push --update-aliases 0.1 stable
+              run: mike deploy --push --update-aliases 0.0a1 stable
 
             - name: Set default version
-              run: mike set-default --push stable
+              run: mike set-default --push 0.0a1
