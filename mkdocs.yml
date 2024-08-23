@@ -1,6 +1,5 @@
 site_name: Dj Waanverse Auth.
 site_url: https://dj-waanverse-auth.waanverse.com/
-
 nav:
     - Home: index.md
     - Installation Guide: installation.md
@@ -76,24 +75,27 @@ extra:
 
     version:
         provider: mike
-        default: latest
+        default:
+            - latest
+            - stable
+            - dev
     social:
         - icon: fontawesome/brands/github
           link: https://github.com/waanverse
     generator: false
 
 plugins:
-    - privacy
+    # - privacy
     - search
-    - social
+    # - social
     - minify:
-        minify_html: true
-        minify_js: true
-        minify_css: true
-        htmlmin_opts:
-            remove_comments: true
-        cache_safe: true
-      
+          minify_html: true
+          minify_js: true
+          minify_css: true
+          htmlmin_opts:
+              remove_comments: true
+          cache_safe: true
+
 copyright: Copyright &copy; 2024 All rights reserved. Waanverse Labs Inc. –
     <a href="#__consent">Change cookie settings</a>
 

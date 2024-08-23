@@ -37,7 +37,7 @@ jobs:
                   git fetch origin gh-pages --depth=1
 
             - name: Deploy Documentation
-              run: mike deploy --push --update-aliases 0.0a1
+              run: mike deploy --push --update-aliases 0.1 latest
 
             - name: Set Default Documentation Version
-              run: mike set-default --push 0.0a1
+              run: mike set-default --push latest
