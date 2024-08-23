@@ -1,4 +1,4 @@
-site_name: Dj Waanverse Auth Documentation.
+site_name: Dj Waanverse Auth.
 site_url: https://dj-waanverse-auth.waanverse.com/
 
 nav:
@@ -31,11 +31,9 @@ theme:
     favicon: assets/images/favicon.ico
     features:
         - navigation.instant
-        - navigation.tabs
         - navigation.instant.prefetch
         - navigation.instant.progress
         - navigation.sections
-        - toc.integrate
         - navigation.top
         - search.suggest
         - search.highlight

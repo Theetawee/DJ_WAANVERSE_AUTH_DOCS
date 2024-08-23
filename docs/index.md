@@ -9,7 +9,7 @@ hide:
 
 ## Introduction
 
-`dj_waanverse_auth` is a state-of-the-art authentication package developed by Waanverse Labs Inc., meticulously designed to meet the modern security demands of both web and mobile applications. This comprehensive solution for REST authentication using JSON Web Tokens (JWT) ensures that your applications are secure, efficient, and scalable. It is the core authentication package used internally at Waanverse Labs, powering our diverse range of software products and services.
+`dj_waanverse_auth` is a state-of-the-art authentication package developed by [Waanverse Labs Inc.](https://www.waanverse.com), meticulously designed to meet the modern security demands of both web and mobile applications. This comprehensive solution for REST authentication using JSON Web Tokens (JWT) ensures that your applications are secure, efficient, and scalable. It is the core authentication package used internally at Waanverse Labs, powering our diverse range of software products and services.
 
 ### Why Dj Waanverse Auth?
 
@@ -58,7 +58,7 @@ For more information, visit our [website](https://www.waanverse.com) or contact 
 
 ## Development Team
 
-`dj_waanverse_auth` was brought to life and maintained by a team of highly skilled developers and security experts at Waanverse Labs Inc., led by our visionary leader, **Khaotungkulmethee Pattawee Drake** ([tawee@waanverse.com](mailto:tawee@waanverse.com)). Our team combines years of experience in software engineering, app development, cybersecurity, and web development, ensuring that every aspect of this package is crafted with precision and care.
+`dj_waanverse_auth` was brought to life and maintained by a team of highly skilled developers and security experts at Waanverse Labs Inc., led by our visionary leader, [**Khaotungkulmethee Pattawee Drake**](https://www.waanverse.com/en-us/executives/khaotungkulmethee-pattawee/) ([tawee@waanverse.com](mailto:tawee@waanverse.com)). Our team combines years of experience in software engineering, app development, cybersecurity, and web development, ensuring that every aspect of this package is crafted with precision and care.
 
 ## Technology Stack
 
