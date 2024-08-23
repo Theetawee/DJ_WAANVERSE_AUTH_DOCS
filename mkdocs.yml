@@ -88,8 +88,7 @@ plugins:
     - search
     - social
 
-copyright:
-    Copyright &copy; 2024 All rights reserved. Waanverse Labs Inc. –
+copyright: Copyright &copy; 2024 All rights reserved. Waanverse Labs Inc. –
     <a href="#__consent">Change cookie settings</a>
 
 markdown_extensions:
