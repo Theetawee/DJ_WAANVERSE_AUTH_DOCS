@@ -25,7 +25,7 @@ To get started with `dj_waanverse_auth`, follow these steps:
 First, install the package using pip:
 
 ```bash
-pip install dj_waanverse_auth
+pip install dj-waanverse-auth
 ```
 
 ### 2. Configure Django Settings
@@ -49,7 +49,7 @@ Add the custom authentication backend provided by dj_waanverse_auth:
 
 ```python
 AUTHENTICATION_BACKENDS = [
-    "dj_waanverse_auth.backends.CustomAuthBackend",
+    "dj_waanverse_auth.backends.AuthBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 ```
