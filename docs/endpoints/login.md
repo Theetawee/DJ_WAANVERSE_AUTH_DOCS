@@ -35,7 +35,8 @@
     ```json
     {
         "email": "user@example.com",
-        "msg": "[Messages.status_unverified]*"
+        "msg": "[Messages.status_unverified]*",
+        "code": "email_unverified"
     }
     ```
 -   **Content (Email Verified, MFA Not Enabled):**

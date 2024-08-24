@@ -132,6 +132,14 @@ The `dj_waanverse_auth` package provides a flexible configuration system to tail
 - **Default:** `10`
 - **Description:** The duration for which the email verification code remains valid in minutes.
 
+### AUTO_RESEND_EMAIL
+- **Type:** `bool`
+- **Default:** `False`
+- **Description:** If set to `True`, users will receive an email to verify their email address upon logging in with unverified email address.
+
+
+
+
 ### MFA_ISSUER_NAME
 - **Type:** `str`
 - **Default:** `"Waanverse Labs Inc."`
