@@ -8,10 +8,10 @@ nav:
     - API Endpoints:
           - User Login: endpoints/login.md
           - Verify Email: endpoints/verify_email.md
+          - Resend Verification Email: endpoints/resend_verification_email.md
           - Confirm Password Reset: endpoints/confirm_reset_password.md
           - User Logout: endpoints/logout.md
           - Refresh Token: endpoints/refresh_token.md
-          - Resend Verification Email: endpoints/resend_verification_email.md
           - Reset Password: endpoints/reset_password.md
           - User Signup: endpoints/signup.md
           - User Info: endpoints/userinfo.md

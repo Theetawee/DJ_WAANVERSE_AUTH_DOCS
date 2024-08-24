@@ -29,7 +29,7 @@
     -   **Content:**
         ```json
         {
-            "email": ["[Messages.no_account]*"]
+            "email": ["[Messages.no_account]*"],
         }
         ```
     -   **Description:** Returned when no account is associated with the provided email.

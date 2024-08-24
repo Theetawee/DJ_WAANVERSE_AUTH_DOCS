@@ -67,7 +67,7 @@
 
 1. **MFA Enabled:** If multi-factor authentication (MFA) is enabled, the response will include the user ID in the `mfa` key. The MFA cookie, containing the user ID, is automatically set in the response headers.
 
-2. **Email Not Verified:** If the user's email is not verified, the response includes the user's email in the `email` key and a message prompting email verification in the `msg` key. A verification email containing the code is automatically sent to the user's email address.
+2. **Email Not Verified:** If the user's email is not verified, the response includes the user's email in the `email` key and a message prompting email verification in the `msg` key. A verification email containing the code is automatically sent to the user's email address if `AUTO_RESEND_EMAIL` is set to `True`.
 
 3. **Email Verified, MFA Not Enabled:** If the email is verified and MFA is not enabled, the response includes access and refresh tokens in the respective keys, along with user details in the `user` key as defined by the `USER_CLAIM_SERIALIZER`. Authentication cookies are automatically set in the response headers.
 
