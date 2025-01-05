@@ -1,0 +1,53 @@
+dj-waanverse-auth/                  # Root project directory
+│
+├── docs/                           # Documentation root
+│   ├── assets/                     # Static assets
+│   │   ├── images/                 # Images used in docs
+│   │   │   ├── logo.png
+│   │   │   └── favicon.ico
+│   │   ├── css/                   # Custom CSS
+│   │   │   └── extra.css
+│   │   └── js/                    # Custom JavaScript
+│   │       └── extra.js
+│   │
+│   ├── overrides/                  # Theme overrides
+│   │   ├── main.html
+│   │   └── partials/
+│   │       └── footer.html
+│   │
+│   ├── index.md                    # Home page
+│   ├── quickstart.md              # Quick start guide
+│   ├── installation.md            # Installation guide
+│   │
+│   ├── configuration/             # Configuration docs
+│   │   ├── index.md              # Configuration overview
+│   │   ├── environment.md        # Environment variables
+│   │   └── messages.md           # Custom messages
+│   │
+│   ├── endpoints/                 # API endpoints documentation
+│   │   ├── index.md              # API overview
+│   │   ├── login.md              # Login endpoint
+│   │   ├── signup.md             # Signup endpoint
+│   │   ├── logout.md             # Logout endpoint
+│   │   │
+│   │   └── mfa/                  # MFA-related endpoints
+│   │       ├── overview.md       # MFA overview
+│   │       ├── enable.md         # Enable MFA
+│   │       ├── verify.md         # Verify MFA
+│   │       ├── login.md          # MFA login
+│   │       ├── status.md         # MFA status
+│   │       ├── deactivate.md     # Deactivate MFA
+│   │       └── generate_code.md  # Generate recovery codes
+│   │
+│   ├── advanced/                  # Advanced topics
+│   │   ├── security.md           # Security best practices
+│   │   ├── rate-limiting.md      # Rate limiting docs
+│   │   └── custom-auth.md        # Custom authentication
+│   │
+│   └── contributing/              # Contributing guides
+│       ├── guidelines.md          # Contribution guidelines
+│       └── development.md         # Development setup
+│
+├── mkdocs.yml                     # MkDocs configuration file
+├── README.md                      # Project readme
+└── requirements.txt               # Python dependencies

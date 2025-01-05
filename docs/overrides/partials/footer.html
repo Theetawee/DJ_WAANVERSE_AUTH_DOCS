@@ -1,0 +1,116 @@
+{# In docs/overrides/partials/footer.html #}
+{% import "partials/language.html" as lang with context %}
+
+<footer class="md-footer">
+  {% if page.previous_page or page.next_page %}
+    {% if page.meta and page.meta.hide %}
+      {% set hidden = "hidden" if "footer" in page.meta.hide %}
+    {% endif %}
+    <nav class="md-footer__inner md-grid" aria-label="{{ lang.t('footer.title') }}" {{ hidden }}>
+      {% if page.previous_page %}
+        {% set direction = lang.t("footer.previous") %}
+        <a href="{{ page.previous_page.url | url }}" class="md-footer__link md-footer__link--prev" aria-label="{{ direction }}: {{ page.previous_page.title | e }}">
+          <div class="md-footer__button md-icon">
+            {% include ".icons/material/arrow-left.svg" %}
+          </div>
+          <div class="md-footer__title">
+            <span class="md-footer__direction">
+              {{ direction }}
+            </span>
+            <div class="md-ellipsis">
+              {{ page.previous_page.title }}
+            </div>
+          </div>
+        </a>
+      {% endif %}
+      {% if page.next_page %}
+        {% set direction = lang.t("footer.next") %}
+        <a href="{{ page.next_page.url | url }}" class="md-footer__link md-footer__link--next" aria-label="{{ direction }}: {{ page.next_page.title | e }}">
+          <div class="md-footer__title">
+            <span class="md-footer__direction">
+              {{ direction }}
+            </span>
+            <div class="md-ellipsis">
+              {{ page.next_page.title }}
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            {% include ".icons/material/arrow-right.svg" %}
+          </div>
+        </a>
+      {% endif %}
+    </nav>
+  {% endif %}
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        {% if config.copyright %}
+          <div class="md-footer-copyright__highlight">
+            {{ config.copyright }}
+          </div>
+        {% endif %}
+        <div class="footer-custom-content">
+          <p>
+            Made with
+            <span class="twemoji heart">
+              {% include ".icons/material/heart.svg" %}
+            </span>
+            by <a href="https://www.waanverse.com" target="_blank">Waanverse Labs Inc.</a>
+          </p>
+          <p class="footer-links">
+            <a href="https://www.waanverse.com/privacy" target="_blank">Privacy Policy</a> |
+            <a href="https://www.waanverse.com/terms" target="_blank">Terms of Service</a> |
+            <a href="https://www.waanverse.com/security" target="_blank">Security</a>
+          </p>
+        </div>
+      </div>
+      {% include "partials/social.html" %}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .md-footer-meta {
+    background-color: var(--md-footer-bg-color);
+  }
+  
+  .footer-custom-content {
+    font-size: 0.64rem;
+    margin-top: 0.8rem;
+    text-align: center;
+  }
+  
+  .footer-custom-content p {
+    margin: 0.4rem 0;
+  }
+  
+  .footer-custom-content .heart {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.2rem;
+  }
+  
+  .footer-custom-content .heart svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: #ff5252;
+  }
+  
+  .footer-links {
+    margin-top: 0.4rem;
+  }
+  
+  .footer-links a {
+    color: var(--md-footer-fg-color--light);
+    margin: 0 0.5rem;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  [data-md-color-scheme="slate"] .footer-custom-content .heart svg {
+    fill: #ff7b7b;
+  }
+</style>

@@ -1,88 +1,123 @@
-<!-- ---
-hide:
-  - navigation
-  - toc
-  - path
---- -->
+# Welcome to Dj Waanverse Auth
 
-# **Dj Waanverse Auth Documentation**
+[![PyPI version](https://badge.fury.io/py/dj-waanverse-auth.svg)](https://badge.fury.io/py/dj-waanverse-auth)
+[![License](https://img.shields.io/badge/license-Proprietary-blue.svg)](https://www.waanverse.com/licenses)
+[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Django](https://img.shields.io/badge/django-5.0+-green.svg)](https://www.djangoproject.com/)
 
-## Introduction
+## Enterprise-Grade Authentication for Modern Applications
 
-`dj_waanverse_auth` is a state-of-the-art authentication package developed by [Waanverse Labs Inc.](https://www.waanverse.com), meticulously designed to meet the modern security demands of both web and mobile applications. This comprehensive solution for REST authentication using JSON Web Tokens (JWT) ensures that your applications are secure, efficient, and scalable. It is the core authentication package used internally at Waanverse Labs, powering our diverse range of software products and services.
+`dj_waanverse_auth` is a comprehensive authentication solution developed by [Waanverse Labs Inc.](https://www.waanverse.com), designed to meet the demanding security requirements of modern web and mobile applications. As the core authentication package powering Waanverse Labs' diverse software portfolio, it combines enterprise-level security with developer-friendly implementation.
 
-### Why Dj Waanverse Auth?
+!!! tip "Quick Links" - [Quick Start Guide](quickstart.md) - [Installation Instructions](installation.md) - [API Documentation](endpoints.md) - [Security Best Practices](advanced/security.md)
 
-In the rapidly evolving digital landscape, the need for secure and efficient authentication mechanisms has never been more critical. As Waanverse Labs Inc. expanded its portfolio of software services across various industries, we identified a gap in the market: a need for a robust, flexible, and enterprise-grade authentication solution that integrates seamlessly with Django and Django REST Framework.
+## Key Features
 
-To address this, we developed `dj_waanverse_auth` as an internal tool to meet our own high standards of security and scalability. Our aim is to provide a package that is easy to integrate, highly configurable, and, most importantly, secure by default.
+### Core Authentication
 
+-   **🔐 JWT-Based Authentication**
 
-### Core Capabilities
+    -   Secure token generation and validation
+    -   Configurable token lifetime
+    -   Built-in protection against common JWT attacks
 
-- **🔑 JWT-Based Authentication System**  
-  `dj_waanverse_auth` leverages JSON Web Tokens (JWT) for robust and scalable authentication. This method ensures that authentication tokens are securely encoded and can be easily transmitted between clients and servers, reducing the complexity of session management and enabling seamless integration across various platforms.
+-   **🔄 Advanced Token Management**
+    -   Automatic token rotation
+    -   Refresh token mechanism
+    -   Blacklisting capabilities
+    -   Concurrent session management
 
-- **🕒 Advanced Token Management (Rotation and Refresh)**  
-  Our package provides advanced token management capabilities, including token rotation and refresh mechanisms. This feature ensures that tokens remain valid for a defined period while allowing for automatic updates to improve security and user experience. It minimizes the risk of token theft by frequently rotating the keys used for encryption.
+### Security Features
 
-- **🍪 Seamless Integration with Cookie-Based Authentication Flows**  
-  `dj_waanverse_auth` integrates smoothly with cookie-based authentication systems, allowing for secure, session-based management of user credentials. This ensures compatibility with traditional web applications while maintaining the enhanced security provided by JWT.
+-   **🛡️ Multi-Factor Authentication (MFA)**
 
-- **🔒 Enhanced Security Measures Including Multi-Factor Authentication (MFA)**  
-  Security is at the heart of `dj_waanverse_auth`. We provide built-in support for multi-factor authentication (MFA), which adds an extra layer of security by requiring users to provide multiple forms of verification. This significantly reduces the risk of unauthorized access, ensuring that your application is protected against a wide range of security threats.
+    -   Time-based One-Time Password (TOTP) support
+    -   Recovery codes generation
+    -   Multiple device management
+    -   Customizable MFA workflows
 
-- **🔑 Comprehensive Account Functionality**  
-  The package includes a complete suite of account management features, from registration and password recovery to account deactivation and deletion. This comprehensive functionality is designed to simplify user management while maintaining high security standards.
+-   **🍪 Cookie Security**
+    -   Secure, HttpOnly cookies
+    -   CSRF protection
+    -   SameSite policy enforcement
+    -   Cross-Origin Resource Sharing (CORS) controls
 
-- **💼 Enterprise Ready**  
-  `dj_waanverse_auth` is designed to meet the needs of enterprise environments, offering scalability, configurability, and compliance with industry standards. Whether you're running a small application or a large-scale enterprise system, our package provides the flexibility and robustness required for any deployment scenario.
+### User Management
 
-- **🕵️ Battle-Tested**  
-  Developed and extensively used within Waanverse Labs Inc., `dj_waanverse_auth` has been thoroughly tested in real-world scenarios. Its reliability has been proven in demanding production environments, ensuring that it can handle even the most challenging authentication requirements.
+-   **👤 Account Operations**
 
-- **🔒 Private**  
-  Privacy is a priority. `dj_waanverse_auth` is designed to handle sensitive user information with the utmost care. Our package ensures that all data processing complies with strict privacy standards, protecting user data from unauthorized access and ensuring confidentiality.
+    -   Streamlined registration process
+    -   Password recovery workflow
+    -   Email verification system
+    -   Account deactivation handling
 
-- **🧩 Customizable**  
-  Flexibility is key to meeting the diverse needs of our users. `dj_waanverse_auth` offers extensive customization options, allowing you to tailor the authentication system to your specific requirements. Whether it's modifying token lifetimes, customizing authentication flows, or integrating with third-party systems, our package provides the tools you need to build a solution that fits perfectly within your application ecosystem.
+-   **📱 Device Management**
+    -   Device tracking
+    -   Session management
+    -   Location-based security
+    -   Suspicious activity detection
 
-## About Waanverse Labs Inc.
+## Why Choose Dj Waanverse Auth?
 
-Waanverse Labs Inc. is a leading software company based in Uganda, specializing in creating custom software products and services tailored to meet the unique needs of our clients. Our expertise extends across a variety of industries, including finance, healthcare, and more, providing cutting-edge solutions in web development, app development, and beyond. 
+### Built for Enterprise
 
-At Waanverse Labs, we are committed to delivering innovative, enterprise-level authentication and security solutions that help businesses thrive in the digital age. Our dedicated team of experts is passionate about driving technological advancements and ensuring our clients receive top-tier service and support.
+-   **Scalability**: Handles millions of authentication requests
+-   **Reliability**: Battle-tested in production environments
+-   **Compliance**: Adheres to industry security standards
+-   **Flexibility**: Extensive configuration options
 
-For more information, visit our [website](https://www.waanverse.com) or contact us at [support@waanverse.com](mailto:support@waanverse.com).
+### Security-First Design
 
+-   **Protected by Default**: Secure configurations out of the box
+-   **Regular Updates**: Continuous security patches and improvements
+-   **Best Practices**: Implements latest security recommendations
+-   **Audit Trail**: Comprehensive logging and monitoring
+
+### Developer Experience
+
+-   **Easy Integration**: Seamless Django REST framework compatibility
+-   **Clear Documentation**: Extensive guides and API references
+-   **Customizable**: Flexible override options
+-   **Support**: Dedicated technical assistance
+
+## Technology Foundation
+
+Built on trusted open-source technologies:
+
+-   Django (3.2+)
+-   Django REST framework
+-   PyOTP for MFA
+-   PyJWT for JWT handling
+-   user-agents for device detection
+
+## About Waanverse Labs
+
+Waanverse Labs is a global technology leader driving innovation across AI, cloud computing, and data-driven solutions. With a commitment to advancing the frontiers of technology, we develop transformations platforms and tools that empower businesses and individuals worldwide. Our mission is to build scalable, intelligent, and user-focused systems that redefine how technology integrates into everyday life. Join us in shaping the future, creating unprecedented value, and pushing the boundaries of what’s possible.
 
 ## Development Team
 
-`dj_waanverse_auth` was brought to life and maintained by a team of highly skilled developers and security experts at Waanverse Labs Inc., led by our visionary leader, [**Khaotungkulmethee Pattawee Drake**](https://www.waanverse.com/en-us/executives/khaotungkulmethee-pattawee/) ([tawee@waanverse.com](mailto:tawee@waanverse.com)). Our team combines years of experience in software engineering, app development, cybersecurity, and web development, ensuring that every aspect of this package is crafted with precision and care.
+Led by [**Khaotungkulmethee Pattawee Drake**](https://www.waanverse.com/en-us/executives/khaotungkulmethee-pattawee/)  
+Chief Technology Officer  
+[tawee@waanverse.com](mailto:tawee@waanverse.com)
 
-## Technology Stack
+## Getting Started
 
-Dj Waanverse Auth leverages the power of several leading open-source technologies:
+```bash
+pip install dj-waanverse-auth
+```
 
-- Django
-- Django REST framework
-- PyOTP
-- user-agents
-- djangorestframework-simplejwt
+For detailed setup instructions, visit our [Installation Guide](installation.md).
 
-By building upon these established and well-maintained libraries, we ensure that Dj Waanverse Auth remains at the cutting edge of authentication technology while benefiting from the collective expertise of the open-source community.
+## Support and Contact
 
+-   **Technical Support**: [support@waanverse.com](mailto:support@waanverse.com)
+-   **Documentation**: [https://docs.waanverse.com](https://docs.waanverse.com)
+-   **Company Website**: [https://www.waanverse.com](https://www.waanverse.com)
 
-## The Future of Dj Waanverse Auth
+## License and Usage
 
-We are committed to continuous development and improvement, ensuring that our users always have access to the latest features, updates, and security enhancements. Our roadmap includes the integration of more advanced security measures, such as adaptive authentication, machine learning-based anomaly detection, and seamless support for emerging authentication standards.
+`dj_waanverse_auth` is available for free use within the Waanverse Labs ecosystem and by approved partners. For licensing inquiries, please contact our [software sales team](mailto:software@waanverse.com).
 
-## Appreciation for Open Source
+---
 
-At Waanverse Labs Inc., we believe in the power of the open-source community. `dj_waanverse_auth` is built on the shoulders of giants, leveraging some of the most trusted and well-maintained open-source projects in the industry. We are deeply grateful to the contributors of these projects for their invaluable work.
-
-## Licensing and Usage
-
-`dj_waanverse_auth` is a free-to-use package, reflecting our commitment to giving back to the developer community. However, it is also a restricted package, designed for use within the Waanverse Labs ecosystem and by approved partners. While we encourage exploration and contribution, we also maintain strict guidelines to ensure that our package is used responsibly and in accordance with our licensing terms.
-
-For more detailed information about implementation, usage, and advanced features, please refer to our comprehensive documentation suite.
+_Built with ❤️ by Waanverse Labs Inc. © 2024_

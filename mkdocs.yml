@@ -1,92 +1,159 @@
-site_name: Dj Waanverse Auth.
+site_name: DJ Waanverse Auth
 site_url: https://dj-waanverse-auth.waanverse.com/
+site_description: Django-based authentication system by Waanverse Labs
+site_author: Waanverse Labs Inc.
+
+# Repository
+repo_name: waanverse/dj-waanverse-auth
+repo_url: https://github.com/Theetawee/DJ_WAANVERSE_AUTH
+edit_uri: edit/main/docs/
+
+# Navigation Structure
 nav:
-    - Home: index.md
-    - Installation Guide: installation.md
-    - Configuration Settings: configuration.md
-    - Messages: messages.md
-    - API Overview: endpoints.md
-    - API Endpoints:
-          - User Login: endpoints/login.md
-          - Verify Email: endpoints/verify_email.md
-          - Resend Verification Email: endpoints/resend_verification_email.md
-          - User Logout: endpoints/logout.md
-          - Refresh Token: endpoints/refresh_token.md
-          - Reset Password: endpoints/reset_password.md
-          - Confirm Password Reset: endpoints/confirm_reset_password.md
+    - Getting Started:
+          - Introduction: index.md
+          - Quick Start: quickstart.md
+          - Installation Guide: installation.md
+    - Configuration:
+          - Basic Settings: configuration.md
+          - Environment Variables: environment.md
+          - Custom Messages: messages.md
+    - API Documentation:
+          - Overview: endpoints.md
+          - Authentication:
+                - User Signup: endpoints/signup.md
+                - User Login: endpoints/login.md
+                - User Logout: endpoints/logout.md
+                - Token Management:
+                      - Refresh Token: endpoints/refresh_token.md
+                      - Token Validation: endpoints/validate_token.md
+          - Account Management:
+                - User Info: endpoints/userinfo.md
+                - Email Verification:
+                      - Verify Email: endpoints/verify_email.md
+                      - Resend Verification: endpoints/resend_verification_email.md
+                - Password Management:
+                      - Reset Password: endpoints/reset_password.md
+                      - Confirm Reset: endpoints/confirm_reset_password.md
+          - Multi-Factor Authentication:
+                - Overview: endpoints/mfa/overview.md
+                - Setup & Status: 
+                      - Enable MFA: endpoints/mfa/enable.md
+                      - MFA Status: endpoints/mfa/status.md
+                      - Deactivate MFA: endpoints/mfa/deactivate.md
+                - Authentication Flow:
+                      - MFA Login: endpoints/mfa/login.md
+                      - Verify MFA: endpoints/mfa/verify.md
+                - Recovery:
+                      - Generate Recovery Codes: endpoints/mfa/generate_code.md
+                      - Use Recovery Code: endpoints/mfa/use_recovery.md
+    - Advanced Topics:
+          - Security Best Practices: advanced/security.md
+          - Rate Limiting: advanced/rate-limiting.md
+          - Custom Authentication: advanced/custom-auth.md
+    - Contributing:
+          - Guidelines: contributing/guidelines.md
+          - Development Setup: contributing/development.md
+    - Changelog: changelog.md
 
-          - User Signup: endpoints/signup.md
-          - User Info: endpoints/userinfo.md
-          - Multi-Factor Authentication (MFA):
-                - Deactivate MFA: endpoints/mfa/deactivate.md
-                - Enable MFA: endpoints/mfa/enable.md
-                - Generate MFA Recovery Codes: endpoints/mfa/generate_code.md
-                - MFA Login: endpoints/mfa/login.md
-                - MFA Status: endpoints/mfa/status.md
-                - Verify MFA: endpoints/mfa/verify.md
-
+# Theme Configuration
 theme:
     name: material
     custom_dir: docs/overrides
     logo: assets/images/logo.png
     favicon: assets/images/favicon.ico
+    
+    # Theme Features
     features:
+        # Navigation
         - navigation.instant
         - navigation.instant.prefetch
         - navigation.instant.progress
         - navigation.sections
+        - navigation.tabs
+        - navigation.tabs.sticky
         - navigation.top
-        - search.suggest
-        - search.highlight
-        - content.tabs.link
-        - content.code.copy
         - navigation.tracking
         - navigation.path
         - navigation.footer
-
+        - toc.follow
+        
+        # Search
+        - search.suggest
+        - search.highlight
+        - search.share
+        
+        # Content
+        - content.tabs.link
+        - content.code.copy
+        - content.code.annotate
+        
+    # Theme Customization
     language: en
     palette:
-        - scheme: default
+        # Light mode
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          primary: teal
+          accent: teal
           toggle:
-              icon: material/toggle-switch-off-outline
+              icon: material/weather-sunny
               name: Switch to dark mode
+        
+        # Dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
           primary: teal
           accent: teal
-        - scheme: slate
           toggle:
-              icon: material/toggle-switch
+              icon: material/weather-night
               name: Switch to light mode
-          primary: teal
-          accent: teal
 
-extra:
-    consent:
-        title: Cookie consent
-        description: >-
-            We use cookies to recognize your repeated visits and preferences, as well
-            as to measure the effectiveness of our documentation and whether users
-            find what they're searching for, With your consent, you're helping us to
-            make our documentation better.
-        actions:
-            - accept
-            - reject
+# Extensions
+markdown_extensions:
+    # Python Markdown
+    - admonition
+    - attr_list
+    - def_list
+    - footnotes
+    - md_in_html
+    - toc:
+          permalink: true
+          toc_depth: 3
+    
+    # Python Markdown Extensions
+    - pymdownx.arithmatex:
+          generic: true
+    - pymdownx.betterem:
+          smart_enable: all
+    - pymdownx.caret
+    - pymdownx.details
+    - pymdownx.emoji:
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    - pymdownx.highlight:
+          anchor_linenums: true
+          line_spans: __span
+          pygments_lang_class: true
+    - pymdownx.inlinehilite
+    - pymdownx.keys
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+                format: !!python/name:pymdownx.superfences.fence_code_format
+    - pymdownx.tabbed:
+          alternate_style: true
+    - pymdownx.tasklist:
+          custom_checkbox: true
+    - pymdownx.tilde
 
-    analytics:
-        provider: google
-        property: G-CP8WX06TVQ
-
-    version:
-        provider: mike
-
-    social:
-        - icon: fontawesome/brands/github
-          link: https://github.com/waanverse
-    generator: false
-
+# Plugins
 plugins:
-    # - privacy
-    - search
-    # - social
+    - search:
+          separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
     - minify:
           minify_html: true
           minify_js: true
@@ -94,13 +161,50 @@ plugins:
           htmlmin_opts:
               remove_comments: true
           cache_safe: true
+    - git-revision-date-localized:
+          enable_creation_date: true
+    - mkdocstrings:
+          default_handler: python
+          handlers:
+              python:
+                  paths: [src]
+                  options:
+                      show_source: true
+                      show_root_heading: true
 
-copyright: Copyright &copy; 2024 All rights reserved. Waanverse Labs Inc. –
-    <a href="#__consent">Change cookie settings</a>
-
-markdown_extensions:
-    - admonition
-    - pymdownx.details
-    - pymdownx.superfences
-    - toc:
-          permalink: True
+# Extra Configuration
+extra:
+    # Analytics
+    analytics:
+        provider: google
+        property: !ENV GOOGLE_ANALYTICS_KEY
+    
+    # Version Management
+    version:
+        provider: mike
+        default: latest
+    
+    # Social Links
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/waanverse
+        - icon: fontawesome/brands/twitter
+          link: https://twitter.com/waanverse
+        - icon: fontawesome/brands/linkedin
+          link: https://linkedin.com/company/waanverse
+    
+    # Cookie Consent
+    consent:
+        title: Cookie consent
+        description: >-
+            We use cookies to recognize your repeated visits and preferences, as well
+            as to measure the effectiveness of our documentation and whether users
+            find what they're searching for. With your consent, you're helping us to
+            make our documentation better.
+        actions:
+            - accept
+            - reject
+            - manage
+    
+    # Disable generator notice
+    generator: false
