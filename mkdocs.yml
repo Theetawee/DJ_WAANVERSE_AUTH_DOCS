@@ -12,49 +12,20 @@ edit_uri: edit/main/docs/
 nav:
     - Getting Started:
           - Introduction: index.md
-          - Quick Start: quickstart.md
           - Installation Guide: installation.md
     - Configuration:
-          - Basic Settings: configuration.md
-          - Environment Variables: environment.md
-          - Custom Messages: messages.md
+          - Configuring User Model: configuration/configuring-user-model.md
+          - Configuration: configuration/index.md
     - API Documentation:
-          - Overview: endpoints.md
-          - Authentication:
-                - User Signup: endpoints/signup.md
-                - User Login: endpoints/login.md
-                - User Logout: endpoints/logout.md
-                - Token Management:
-                      - Refresh Token: endpoints/refresh_token.md
-                      - Token Validation: endpoints/validate_token.md
-          - Account Management:
-                - User Info: endpoints/userinfo.md
-                - Email Verification:
-                      - Verify Email: endpoints/verify_email.md
-                      - Resend Verification: endpoints/resend_verification_email.md
-                - Password Management:
-                      - Reset Password: endpoints/reset_password.md
-                      - Confirm Reset: endpoints/confirm_reset_password.md
-          - Multi-Factor Authentication:
-                - Overview: endpoints/mfa/overview.md
-                - Setup & Status: 
-                      - Enable MFA: endpoints/mfa/enable.md
-                      - MFA Status: endpoints/mfa/status.md
-                      - Deactivate MFA: endpoints/mfa/deactivate.md
-                - Authentication Flow:
-                      - MFA Login: endpoints/mfa/login.md
-                      - Verify MFA: endpoints/mfa/verify.md
-                - Recovery:
-                      - Generate Recovery Codes: endpoints/mfa/generate_code.md
-                      - Use Recovery Code: endpoints/mfa/use_recovery.md
-    - Advanced Topics:
-          - Security Best Practices: advanced/security.md
-          - Rate Limiting: advanced/rate-limiting.md
-          - Custom Authentication: advanced/custom-auth.md
-    - Contributing:
-          - Guidelines: contributing/guidelines.md
-          - Development Setup: contributing/development.md
-    - Changelog: changelog.md
+          - Endpoints: endpoints.md
+#     - Advanced Topics:
+#           - Security Best Practices: advanced/security.md
+#           - Rate Limiting: advanced/rate-limiting.md
+#           - Custom Authentication: advanced/custom-auth.md
+#     - Contributing:
+#           - Guidelines: contributing/guidelines.md
+#           - Development Setup: contributing/development.md
+#     - Changelog: changelog.md
 
 # Theme Configuration
 theme:
@@ -62,7 +33,7 @@ theme:
     custom_dir: docs/overrides
     logo: assets/images/logo.png
     favicon: assets/images/favicon.ico
-    
+
     # Theme Features
     features:
         # Navigation
@@ -77,34 +48,34 @@ theme:
         - navigation.path
         - navigation.footer
         - toc.follow
-        
+
         # Search
         - search.suggest
         - search.highlight
         - search.share
-        
+
         # Content
         - content.tabs.link
         - content.code.copy
         - content.code.annotate
-        
+
     # Theme Customization
     language: en
     palette:
         # Light mode
         - media: "(prefers-color-scheme: light)"
           scheme: default
-          primary: teal
-          accent: teal
+          primary: light blue
+          accent: light blue
           toggle:
               icon: material/weather-sunny
               name: Switch to dark mode
-        
+
         # Dark mode
         - media: "(prefers-color-scheme: dark)"
           scheme: slate
-          primary: teal
-          accent: teal
+          primary: light blue
+          accent: light blue
           toggle:
               icon: material/weather-night
               name: Switch to light mode
@@ -120,7 +91,7 @@ markdown_extensions:
     - toc:
           permalink: true
           toc_depth: 3
-    
+
     # Python Markdown Extensions
     - pymdownx.arithmatex:
           generic: true
@@ -178,12 +149,12 @@ extra:
     analytics:
         provider: google
         property: !ENV GOOGLE_ANALYTICS_KEY
-    
+
     # Version Management
     version:
         provider: mike
         default: latest
-    
+
     # Social Links
     social:
         - icon: fontawesome/brands/github
@@ -192,7 +163,7 @@ extra:
           link: https://twitter.com/waanverse
         - icon: fontawesome/brands/linkedin
           link: https://linkedin.com/company/waanverse
-    
+
     # Cookie Consent
     consent:
         title: Cookie consent
@@ -205,6 +176,6 @@ extra:
             - accept
             - reject
             - manage
-    
+
     # Disable generator notice
     generator: false

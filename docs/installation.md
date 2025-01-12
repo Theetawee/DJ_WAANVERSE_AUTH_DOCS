@@ -1,107 +1,159 @@
-# Installation
+# Getting Started with dj-waanverse-auth
 
-## Requirements
+Welcome to **dj-waanverse-auth**, a library designed to streamline authentication and device management for your Django projects. Follow this guide to install and configure the package in your project.
 
-Before installing `dj_waanverse_auth`, ensure your environment meets the following requirements:
+---
 
-- **Python 3.11+**: The package is fully compatible with Python 3.11 and later versions, leveraging the latest features and improvements.
-- **Django 5.1+**: Ensure you have Django 5.1 or a more recent version installed, as the package takes advantage of advanced features introduced in Django 5.x.
-- **Django REST Framework 3.15+**: This package integrates seamlessly with Django REST Framework 3.15 and above, ensuring robust API management and security.
-- **SimpleJWT 5.3+**: Required for comprehensive JWT management, including token generation, validation, and refresh mechanisms.
+## Installation
 
-
-!!! note "Note"
-
-    While `dj_waanverse_auth` is designed to automatically install all necessary dependencies, it's advisable to manually verify the installation of these critical packages if you encounter any issues. Ensuring that your environment meets these requirements is essential for a smooth setup and operation.
-
-
-
-## Quickstart
-
-To get started with `dj_waanverse_auth`, follow these steps:
-
-### 1. Install the Package
-
-First, install the package using pip:
+Install the package via pip:
 
 ```bash
 pip install dj-waanverse-auth
 ```
 
-### 2. Configure Django Settings
-Assuming you have a Django project already set up, you need to make several updates to your settings.py file:
+---
 
-a. SMTP Settings
-Set up SMTP settings for your project to enable email functionalities such as password resets and account verification. For detailed guidance, refer to the <a href="https://docs.djangoproject.com/en/4.1/topics/email/" target="_blank" rel="noopener noreferrer">Django Email documentation</a>
+## Setup
 
-b. Add to Installed Apps
-Include dj_waanverse_auth in your INSTALLED_APPS list:
+### 1. Add to Installed Apps
+
+In your `settings.py`, include `dj_waanverse_auth` in the `INSTALLED_APPS` list:
 
 ```python
 INSTALLED_APPS = [
-    ...
-    'dj_waanverse_auth',
-    ...
+    # Django default apps
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # Third-party and custom apps
+    "dj_waanverse_auth",
+    "rest_framework",
+    "accounts",  # Replace with your custom user app
 ]
 ```
-c. Authentication Backends
-Add the custom authentication backend provided by dj_waanverse_auth:
 
-```python
-AUTHENTICATION_BACKENDS = [
-    "dj_waanverse_auth.backends.AuthBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
-```
-d. SimpleJWT Configuration
-Configure the JWT settings. The `SIMPLE_JWT` dictionary handles the lifetime of access and refresh tokens and cookie lifetimes. For additional configurations, refer to the <a href="https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html" target="_blank" rel="noopener noreferrer">SimpleJWT documentation</a>
-.
+---
 
-```python
-from datetime import timedelta
+### 2. Add Middleware
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-}
-```
-e. REST Framework Configuration
-Set dj_waanverse_auth as the default authentication class in Django REST Framework:
-
-```python
-REST_FRAMEWORK = {
-    ...
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "dj_waanverse_auth.backends.JWTAuthentication",
-    ),
-    ...
-}
-```
-f. Middleware Configuration
-Add the CookiesHandlerMiddleware to your middleware stack:
+Include the `DeviceAuthMiddleware` in your `MIDDLEWARE` settings:
 
 ```python
 MIDDLEWARE = [
     ...
-    "dj_waanverse_auth.middleware.CookiesHandlerMiddleware",
-    ...
+    "dj_waanverse_auth.middleware.DeviceAuthMiddleware",
 ]
 ```
-By following these steps, you'll have dj_waanverse_auth integrated into your Django project and ready to handle authentication using JWT.
 
-### 3. URL Configuration
-Additionally, add this to your project urls.py:
+---
+
+### 3. Set Custom User Model
+
+Set up the user model as described in [Configuring User Model](/configuration/configuring-user-model).
+
+Specify your custom user model in `settings.py`:
 
 ```python
-urlpatterns = [
-    ...
-    path('auth/', include('dj_waanverse_auth.urls')),
-    ...
+AUTH_USER_MODEL = "accounts.Account"  # Replace `accounts.Account` with your custom user model
+```
+
+---
+
+### 4. Configure Authentication Backends
+
+Add the custom authentication backend to enable JWT-based authentication:
+
+```python
+AUTHENTICATION_BACKENDS = [
+    "dj_waanverse_auth.backends.AuthenticationBackend",  # Custom backend
+    "django.contrib.auth.backends.ModelBackend",         # Default Django backend
 ]
 ```
-## Post Installation
-In your Django root execute the command below to create your database tables:
+
+---
+
+### 5. Configure REST Framework
+
+Set up the `DEFAULT_AUTHENTICATION_CLASSES` for Django REST Framework in `settings.py`:
+
+```python
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "dj_waanverse_auth.authentication.JWTAuthentication",
+    ),
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
+```
+
+---
+
+### 6. Add Private/Public Key Paths
+
+Add the `PUBLIC_KEY_PATH` and `PRIVATE_KEY_PATH` to the package's settings configuration in your `settings.py`:
+
+```python
+WAANVERSE_AUTH_CONFIG = {
+    "PUBLIC_KEY_PATH": "/path/to/public_key.pem",
+    "PRIVATE_KEY_PATH": "/path/to/private_key.pem",
+}
+```
+
+For a complete list of configurable settings, check out [Configuration](/configuration).
+
+---
+
+### 7. Configure URLs
+
+Include the package's URLs in your project's URL configuration:
+
+```python
+from django.urls import path, include
+
+urlpatterns = [
+    ...
+    path("api/v1/", include("dj_waanverse_auth.urls")),
+]
+```
+
+---
+
+## Final Steps
+
+### 1. Apply Migrations
+
+Run the following command to apply migrations:
 
 ```bash
 python manage.py migrate
 ```
+
+---
+
+### 2. Start the Development Server
+
+Run the server to ensure everything is configured correctly:
+
+```bash
+python manage.py runserver
+```
+
+---
+
+### 3. Run Configuration Check
+
+You can verify your setup and identify any missing required settings using the following command:
+
+```bash
+python manage.py auth-check
+```
+
+This will provide feedback on your configuration and highlight any missing settings or issues.
+
+---
+
+🎉 **Congratulations!** Your Django project is now set up to use **dj-waanverse-auth** for advanced authentication and device management.
+

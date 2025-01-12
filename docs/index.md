@@ -9,8 +9,6 @@
 
 `dj_waanverse_auth` is a comprehensive authentication solution developed by [Waanverse Labs Inc.](https://www.waanverse.com), designed to meet the demanding security requirements of modern web and mobile applications. As the core authentication package powering Waanverse Labs' diverse software portfolio, it combines enterprise-level security with developer-friendly implementation.
 
-!!! tip "Quick Links" - [Quick Start Guide](quickstart.md) - [Installation Instructions](installation.md) - [API Documentation](endpoints.md) - [Security Best Practices](advanced/security.md)
-
 ## Key Features
 
 ### Core Authentication
@@ -84,7 +82,7 @@
 
 Built on trusted open-source technologies:
 
--   Django (3.2+)
+-   Django (3.11+)
 -   Django REST framework
 -   PyOTP for MFA
 -   PyJWT for JWT handling
