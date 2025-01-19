@@ -11,32 +11,19 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            
             - name: Configure Git Credentials
               run: |
-                  git fetch origin gh-pages --depth=1 || echo "Failed to fetch gh-pages, continuing..."
                   git config user.name github-actions[bot]
                   git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-              continue-on-error: true
-
             - uses: actions/setup-python@v5
               with:
-                  python-version: 3.12.1
-
+                  python-version: 3.x
             - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-
             - uses: actions/cache@v4
               with:
                   key: mkdocs-material-${{ env.cache_id }}
                   path: .cache
                   restore-keys: |
                       mkdocs-material-
-
-            - name: Install Dependencies
-              run: pip install -r requirements.txt
-
-            - name: Deploy Documentation
-              run: mike deploy --push --update-aliases 0.0.1-beta.5
-            
-            - name: Set default version
-              run: mike set-default --push 0.0.1-beta.5
+            - run: pip install mkdocs-material
+            - run: mkdocs gh-deploy --force
