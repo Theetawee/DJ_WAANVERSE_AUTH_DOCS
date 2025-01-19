@@ -1,334 +1,356 @@
-# Authentication Configuration Documentation
-
-This document provides an explanation of the various settings available in the authentication configuration for the Waanverse authentication service.
-
----
-
 ## Security Settings
 
-### `PUBLIC_KEY_PATH`
+### Configuration Overview
 
-**Type**: str  
-**Description**: The file path to the public key used for verifying tokens. Leave empty if not applicable.
+The settings for the authentication service are defined in the `WAANVERSE_AUTH_CONFIG` dictionary. This dictionary allows developers to customize the behavior of various components, including security, cookie handling, multi-factor authentication, user configurations, and more.
 
-### `PRIVATE_KEY_PATH`
+Some configuration settings are optimized for specific environments, such as production or development. It is the developer’s responsibility to determine which settings are most appropriate for their use case and environment. For example, in a production environment, security-related settings like cookie security and token expiration times may require stricter configurations, while development environments may prioritize convenience over security for testing purposes.
 
-**Type**: str  
-**Description**: The file path to the private key used for signing tokens. Leave empty if not applicable.
+Ensure that the correct configurations are applied based on the environment to maintain a secure and efficient authentication flow.
 
-### `HEADER_NAME`
+-   **`PUBLIC_KEY_PATH`**
 
-**Type**: str  
-**Default**: "X-Auth-Token"  
-**Description**: The name of the HTTP header used for sending authentication tokens.
+    -   Type: `str`
+    -   Required: `True`
+    -   Default: None
+    -   Description: The file path to the pem public key file used for verifying tokens.
 
-### `DEVICE_ID_HEADER_NAME`
+-   **`PRIVATE_KEY_PATH`**
 
-**Type**: str  
-**Default**: "X-Device-Id"  
-**Description**: The name of the HTTP header used for identifying devices.
+    -   Type: `str`
+    -   Required: `True`
+    -   Default: None
+    -   Description: The file path to the private key used for signing tokens.
 
-### `DEVICE_COOKIE_NAME`
 
-**Type**: str  
-**Default**: "device_id"  
-**Description**: The name of the cookie used to store device identifiers.
-
-### `USER_ID_CLAIM`
-
-**Type**: str  
-**Default**: "user_id"  
-**Description**: The claim in the token that identifies the user.
-
-### `DEVICE_AUTH_EXCLUDED_PATHS`
-
-**Type**: List[str]  
-**Default**: []  
-**Description**: A list of paths excluded from device authentication checks.
+-   **`USER_ID_CLAIM`**
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"id"`
+    -   Description: The claim in the token that identifies the user.
 
 ---
 
 ## Cookie Configuration
 
-### `ACCESS_TOKEN_COOKIE_NAME`
+-   **`ACCESS_TOKEN_COOKIE_NAME`**
 
-**Type**: str  
-**Default**: "access_token"  
-**Description**: The name of the cookie storing access tokens.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"access_token"`
+    -   Description: The name of the cookie storing access tokens.
 
-### `REFRESH_TOKEN_COOKIE_NAME`
+-   **`REFRESH_TOKEN_COOKIE_NAME`**
 
-**Type**: str  
-**Default**: "refresh_token"  
-**Description**: The name of the cookie storing refresh tokens.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"refresh_token"`
+    -   Description: The name of the cookie storing refresh tokens.
 
-### `COOKIE_PATH`
+-   **`COOKIE_PATH`**
 
-**Type**: str  
-**Default**: "/"  
-**Description**: The path for which cookies are valid.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"/"`
+    -   Description: The path for which cookies are valid.
 
-### `COOKIE_DOMAIN`
+-   **`COOKIE_DOMAIN`**
 
-**Type**: Optional[str]  
-**Default**: None  
-**Description**: The domain for which cookies are valid. Leave empty to apply cookies to all subdomains.
+    -   Type: `Optional[str]`
+    -   Required: `False`
+    -   Default: `None`
+    -   Description: The domain for which cookies are valid.
 
-### `COOKIE_SAMESITE_POLICY`
+-   **`COOKIE_SAMESITE_POLICY`**
 
-**Type**: str  
-**Default**: "Lax"  
-**Description**: The SameSite policy for cookies. Valid options: "Strict", "Lax", "None".
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"Lax"`
+    -   Description: The SameSite policy for cookies. Valid options: `"Strict"`, `"Lax"`, `"None"`.
 
-### `COOKIE_SECURE`
+-   **`COOKIE_SECURE`**
 
-**Type**: bool  
-**Default**: False  
-**Description**: Whether cookies should only be transmitted over HTTPS.
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `False`
+    -   Description: Whether cookies should only be transmitted over HTTPS.
 
-### `COOKIE_HTTP_ONLY`
+-   **`COOKIE_HTTP_ONLY`**
 
-**Type**: bool  
-**Default**: True  
-**Description**: Whether cookies should be inaccessible to JavaScript.
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `True`
+    -   Description: Whether cookies should be inaccessible to JavaScript.
 
-### `ACCESS_TOKEN_COOKIE_MAX_AGE`
+-   **`ACCESS_TOKEN_COOKIE_MAX_AGE`**
 
-**Type**: timedelta  
-**Default**: 30 minutes  
-**Description**: The maximum age of the access token cookie.
+    -   Type: `timedelta`
+    -   Required: `False`
+    -   Default: `30 minutes`
+    -   Description: The maximum age of the access token cookie.
 
-### `REFRESH_TOKEN_COOKIE_MAX_AGE`
-
-**Type**: timedelta  
-**Default**: 30 days  
-**Description**: The maximum age of the refresh token cookie.
+-   **`REFRESH_TOKEN_COOKIE_MAX_AGE`**
+    -   Type: `timedelta`
+    -   Required: `False`
+    -   Default: `30 days`
+    -   Description: The maximum age of the refresh token cookie.
 
 ---
 
 ## Multi-Factor Authentication (MFA)
 
-### `MFA_TOKEN_COOKIE_NAME`
+-   **`MFA_TOKEN_COOKIE_NAME`**
 
-**Type**: str  
-**Default**: "mfa"  
-**Description**: The name of the cookie storing MFA tokens.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"mfa"`
+    -   Description: The name of the cookie storing MFA tokens.
 
-### `MFA_TOKEN_COOKIE_MAX_AGE`
+-   **`MFA_TOKEN_COOKIE_MAX_AGE`**
 
-**Type**: timedelta  
-**Default**: 2 minutes  
-**Description**: The maximum age of the MFA token cookie.
+    -   Type: `timedelta`
+    -   Required: `False`
+    -   Default: `2 minutes`
+    -   Description: The maximum age of the MFA token cookie.
 
-### `MFA_RECOVERY_CODE_COUNT`
+-   **`MFA_RECOVERY_CODE_COUNT`**
 
-**Type**: int  
-**Default**: 10  
-**Description**: The number of recovery codes generated for MFA.
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `10`
+    -   Description: The number of recovery codes generated for MFA.
 
-### `MFA_ISSUER_NAME`
+-   **`MFA_ISSUER_NAME`**
 
-**Type**: str  
-**Default**: "Authentication Service"  
-**Description**: The issuer name displayed in authentication apps.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"Authentication Service"`
+    -   Description: The issuer name displayed in authentication apps.
 
-### `MFA_CODE_LENGTH`
+-   **`MFA_CODE_LENGTH`**
 
-**Type**: int  
-**Default**: 6  
-**Description**: The length of the MFA code.
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `6`
+    -   Description: The length of the MFA code.
 
-### `MFA_EMAIL_NOTIFICATIONS`
-
-**Type**: bool  
-**Default**: True  
-**Description**: Whether email notifications are sent for MFA events.
-
-### `MFA_CHANGED_EMAIL_SUBJECT`
-
-**Type**: str  
-**Default**: "Account security alert"  
-**Description**: The subject of email notifications sent when MFA settings are changed.
+-   **`EMAIL_SECURITY_NOTIFICATIONS_ENABLED`**
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `True`
+    -   Description: Whether email notifications are sent for Security events.
 
 ---
 
 ## User Configuration
 
-### `USERNAME_MIN_LENGTH`
+-   **`USERNAME_MIN_LENGTH`**
 
-**Type**: int  
-**Default**: 4  
-**Description**: The minimum length for usernames.
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `4`
+    -   Description: The minimum length for usernames.
 
-### `RESERVED_USERNAMES`
 
-**Type**: List[str]  
-**Default**: ["admin", "administrator", "root", "system"]  
-**Description**: A list of reserved usernames that cannot be registered.
+-   **`USERNAME_MAX_LENGTH`**
+
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `20`
+    -   Description: The maximum length for usernames.
+
+
+
+-   **`RESERVED_USERNAMES`**
+    -   Type: `List[str]`
+    -   Required: `False`
+    -   Default: `["admin", "administrator", "root", "system"]`
+    -   Description: A list of reserved usernames that cannot be registered.
 
 ---
 
 ## Serializer Classes
 
-### `BASIC_ACCOUNT_SERIALIZER`
+-   **`BASIC_ACCOUNT_SERIALIZER`**
 
-**Type**: str  
-**Default**: "dj_waanverse_auth.serializers.base_serializers.BasicAccountSerializer"  
-**Description**: The serializer class for basic account information.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"dj_waanverse_auth.serializers.base_serializers.BasicAccountSerializer"`
+    -   Description: The serializer class for basic account information.
 
-### `REGISTRATION_SERIALIZER`
+-   **`REGISTRATION_SERIALIZER`**
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"dj_waanverse_auth.serializers.signup_serializers.SignupSerializer"`
+    -   Description: The serializer class for user registration.
 
-**Type**: str  
-**Default**: "dj_waanverse_auth.serializers.signup_serializers.SignupSerializer"  
-**Description**: The serializer class for user registration.
 ---
 
 ## Email Settings
-### `EMAIL_VERIFICATION_CODE_LENGTH`
 
-**Type**: int  
-**Default**: 6  
-**Description**: The length of email verification codes.
+-   **`EMAIL_VERIFICATION_CODE_LENGTH`**
 
-### `EMAIL_VERIFICATION_CODE_IS_ALPHANUMERIC`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `6`
+    -   Description: The length of email verification codes.
 
-**Type**: bool  
-**Default**: False  
-**Description**: Whether email verification codes are alphanumeric.
+-   **`EMAIL_VERIFICATION_CODE_IS_ALPHANUMERIC`**
 
-### `EMAIL_SECURITY_NOTIFICATIONS_ENABLED`
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `False`
+    -   Description: Whether email verification codes are alphanumeric.
 
-**Type**: bool  
-**Default**: True  
-**Description**: Whether security notifications are sent via email.
+-   **`EMAIL_SECURITY_NOTIFICATIONS_ENABLED`**
 
-### `EMAIL_THREADING_ENABLED`
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `True`
+    -   Description: Whether security notifications are sent via email.
 
-**Type**: bool  
-**Default**: True  
-**Description**: Whether email operations use threading to improve performance.
+-   **`EMAIL_THREADING_ENABLED`**
 
-### `BLACKLISTED_EMAILS`
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `True`
+    -   Description: Whether email operations use threading to improve performance.
 
-**Type**: List[str]  
-**Default**: []  
-**Description**: A list of blacklisted email addresses.
+-   **`BLACKLISTED_EMAILS`**
 
-### `DISPOSABLE_EMAIL_DOMAINS`
+    -   Type: `List[str]`
+    -   Required: `False`
+    -   Default: `[]`
+    -   Description: A list of blacklisted email addresses.
 
-**Type**: List[str]  
-**Default**: []  
-**Description**: A list of disposable email domains that are not allowed.
+-   **`DISPOSABLE_EMAIL_DOMAINS`**
 
-### `EMAIL_BATCH_SIZE`
+    -   Type: `List[str]`
+    -   Required: `False`
+    -   Default: `[]`
+    -   Description: A list of disposable email domains that are not allowed.
 
-**Type**: int  
-**Default**: 50  
-**Description**: The batch size for email operations.
+-   **`EMAIL_BATCH_SIZE`**
 
-### `EMAIL_RETRY_ATTEMPTS`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `50`
+    -   Description: The batch size for email operations.
 
-**Type**: int  
-**Default**: 3  
-**Description**: The number of retry attempts for email delivery.
+-   **`EMAIL_RETRY_ATTEMPTS`**
 
-### `EMAIL_RETRY_DELAY`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `3`
+    -   Description: The number of retry attempts for email delivery.
 
-**Type**: int  
-**Default**: 5  
-**Description**: The delay (in seconds) between email delivery retries.
+-   **`EMAIL_RETRY_DELAY`**
 
-### `EMAIL_MAX_RECIPIENTS`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `5`
+    -   Description: The delay (in seconds) between email delivery retries.
 
-**Type**: int  
-**Default**: 50  
-**Description**: The maximum number of recipients per email.
+-   **`EMAIL_MAX_RECIPIENTS`**
 
-### `EMAIL_THREAD_POOL_SIZE`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `50`
+    -   Description: The maximum number of recipients per email.
 
-**Type**: int  
-**Default**: 5  
-**Description**: The thread pool size for email operations.
+-   **`EMAIL_THREAD_POOL_SIZE`**
 
-### `VERIFICATION_EMAIL_SUBJECT`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `5`
+    -   Description: The thread pool size for email operations.
 
-**Type**: str  
-**Default**: "Verify your email address"  
-**Description**: The subject line for email verification messages.
+-   **`VERIFICATION_EMAIL_SUBJECT`**
 
-### `VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_MINUTES`
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"Verify your email address"`
+    -   Description: The subject line for email verification messages.
 
-**Type**: int  
-**Default**: 15  
-**Description**: The expiration time for email verification codes (in minutes).
+-   **`VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_MINUTES`**
 
-### `LOGIN_ALERT_EMAIL_SUBJECT`
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `15`
+    -   Description: The expiration time for email verification codes (in minutes).
 
-**Type**: str  
-**Default**: "New login alert"  
-**Description**: The subject line for login alert emails.
+-   **`LOGIN_ALERT_EMAIL_SUBJECT`**
 
-### `SEND_LOGIN_ALERT_EMAILS`
-
-**Type**: bool  
-**Default**: False  
-**Description**: Whether to send email alerts for new logins.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"New login alert"`
+    -   Description: The subject line for login alert emails.
 
 ---
 
 ## Password Reset
 
-### `PASSWORD_RESET_CODE_EXPIRY_IN_MINUTES`
+-   **`PASSWORD_RESET_CODE_EXPIRY_IN_MINUTES`**
 
-**Type**: int  
-**Default**: 10  
-**Description**: The expiration time for password reset codes (in minutes).
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `10`
+    -   Description: The expiration time for password reset codes (in minutes).
 
 
-### `PASSWORD_RESET_EMAIL_SUBJECT`
 
-**Type**: str  
-**Default**: "Password reset request"  
-**Description**: The subject line for password reset emails.
+-   **`PASSWORD_RESET_CODE_LENGTH`**
+
+    -   Type: `int`
+    -   Required: `False`
+    -   Default: `7`
+    -   Description: The length of password reset codes.
+
+
+
+-   **`PASSWORD_RESET_EMAIL_SUBJECT`**
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"Password reset request"`
+    -   Description: The subject line for password reset emails.
 
 ---
 
 ## Admin Interface
 
-### `ENABLE_ADMIN_PANEL`
+-   **`ENABLE_ADMIN_PANEL`**
 
-**Type**: bool  
-**Default**: False  
-**Description**: Whether the admin panel is enabled.
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `False`
+    -   Description: Whether the admin panel is enabled.
 
-### `USE_UNFOLD_THEME`
-
-**Type**: bool  
-**Default**: False  
-**Description**: Whether to use the "unfold" theme for the admin panel.
+-   **`USE_UNFOLD_THEME`**
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `False`
+    -   Description: Whether to use the "unfold" theme for the admin panel.
 
 ---
 
 ## Branding
 
-### `PLATFORM_NAME`
+-   **`PLATFORM_NAME`**
 
-**Type**: str  
-**Default**: "Authentication Service"  
-**Description**: The name of the platform.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"Authentication Service"`
+    -   Description: The name of the platform.
 
-### `PLATFORM_ADDRESS`
+-   **`PLATFORM_ADDRESS`**
 
-**Type**: str  
-**Default**: "123 Main St."  
-**Description**: The physical address of the platform.
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"123 Main St."`
+    -   Description: The physical address of the platform.
 
-### `PLATFORM_CONTACT_EMAIL`
-
-**Type**: str  
-**Default**: "support@waanverse.com"  
-**Description**: The contact email address for the platform.
-
----
-
-This configuration provides a flexible and secure way to manage authentication settings. Modify the defaults as needed to suit your application's requirements.
+-   **`PLATFORM_CONTACT_EMAIL`**
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `"support@waanverse.com"`
+    -   Description: The contact email address for the platform.
