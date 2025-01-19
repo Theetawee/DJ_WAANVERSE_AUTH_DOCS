@@ -105,20 +105,6 @@ Ensure that the correct configurations are applied based on the environment to m
 
 ## Multi-Factor Authentication (MFA)
 
--   **`MFA_TOKEN_COOKIE_NAME`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"mfa"`
-    -   Description: The name of the cookie storing MFA tokens.
-
--   **`MFA_TOKEN_COOKIE_MAX_AGE`**
-
-    -   Type: `timedelta`
-    -   Required: `False`
-    -   Default: `2 minutes`
-    -   Description: The maximum age of the MFA token cookie.
-
 -   **`MFA_RECOVERY_CODE_COUNT`**
 
     -   Type: `int`
