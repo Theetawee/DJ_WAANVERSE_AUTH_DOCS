@@ -15,13 +15,19 @@ Ensure that the correct configurations are applied based on the environment to m
     -   Default: None
     -   Description: The file path to the pem public key file used for verifying tokens.
 
+-   **`CLOUDFLARE_TURNSTILE_SECRET_KEY`**
+
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: None
+    -   Description: The secret key for Cloudflare Turnstile for captcha.
+
 -   **`PRIVATE_KEY_PATH`**
 
     -   Type: `str`
     -   Required: `True`
     -   Default: None
     -   Description: The file path to the private key used for signing tokens.
-
 
 -   **`USER_ID_CLAIM`**
     -   Type: `str`
@@ -151,15 +157,12 @@ Ensure that the correct configurations are applied based on the environment to m
     -   Default: `4`
     -   Description: The minimum length for usernames.
 
-
 -   **`USERNAME_MAX_LENGTH`**
 
     -   Type: `int`
     -   Required: `False`
     -   Default: `20`
     -   Description: The maximum length for usernames.
-
-
 
 -   **`RESERVED_USERNAMES`**
     -   Type: `List[str]`
@@ -297,16 +300,12 @@ Ensure that the correct configurations are applied based on the environment to m
     -   Default: `10`
     -   Description: The expiration time for password reset codes (in minutes).
 
-
-
 -   **`PASSWORD_RESET_CODE_LENGTH`**
 
     -   Type: `int`
     -   Required: `False`
     -   Default: `7`
     -   Description: The length of password reset codes.
-
-
 
 -   **`PASSWORD_RESET_EMAIL_SUBJECT`**
     -   Type: `str`
