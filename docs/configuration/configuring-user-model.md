@@ -1,16 +1,118 @@
 # User Model Configuration
 
-This document explains the implementation and usage of the `AbstractBaseAccount` custom user model. This model provides a flexible authentication system that supports both email and phone number as contact methods, while using a username as the primary identifier.
+This document details the implementation and usage of the `AbstractBaseAccount` custom user model. This model provides a flexible authentication system supporting both email and phone number as contact methods, while using a username as the primary identifier.
 
 ## Key Features
 
--   Username-based authentication with support for email and phone number
--   Conditional unique constraints for email and phone number
--   Built-in verification status tracking for both email and phone
--   Extensible abstract base class
--   Custom model manager for user creation
--   Password management tracking
--   Comprehensive indexing for optimal query performance
+-   **Username-based authentication** with support for email and phone number.
+-   **Conditional unique constraints** for email and phone number.
+-   **Verification status tracking** for both email and phone.
+-   Extensible abstract base class.
+-   Custom model manager for user creation.
+-   Password management tracking.
+-   Comprehensive indexing for optimized query performance.
+
+## Attributes and Methods
+
+### Model Attributes
+
+1. **`username`**
+
+    - Type: `CharField`
+    - Description: Unique primary identifier for the user (10 characters max).
+    - Index: Yes.
+
+2. **`email_address`**
+
+    - Type: `EmailField`
+    - Description: User's email address; optional but unique when provided.
+    - Index: Yes.
+
+3. **`phone_number`**
+
+    - Type: `CharField`
+    - Description: User's phone number in E.164 format; optional but unique when provided.
+    - Index: Yes.
+
+4. **`date_joined`**
+
+    - Type: `DateTimeField`
+    - Description: Timestamp of user creation.
+    - Default: Auto-set at creation.
+
+5. **`last_login`**
+
+    - Type: `DateTimeField`
+    - Description: Timestamp of the last user login.
+    - Default: Null/Blank.
+
+6. **`is_active`**
+
+    - Type: `BooleanField`
+    - Description: Indicates if the user is active.
+    - Default: True.
+
+7. **`is_staff`**
+
+    - Type: `BooleanField`
+    - Description: Indicates if the user has staff permissions.
+    - Default: False.
+
+8. **`password_last_updated`**
+
+    - Type: `DateTimeField`
+    - Description: Tracks the last password change.
+    - Default: Current timestamp.
+
+9. **`email_verified`**
+
+    - Type: `BooleanField`
+    - Description: Indicates if the email address has been verified.
+    - Default: False.
+
+10. **`phone_number_verified`**
+    - Type: `BooleanField`
+    - Description: Indicates if the phone number has been verified.
+    - Default: False.
+
+### Model Methods
+
+1. **`__str__()`**
+
+    - Returns: Primary contact method (email or phone) or username.
+
+2. **`get_full_name()`**
+
+    - Returns: Full name of the user (inherited models can customize this).
+
+3. **`get_short_name()`**
+
+    - Returns: A short name for the user, usually the username.
+
+4. **`get_primary_contact` (Property)**
+
+    - Returns: The primary contact method (email if available, else phone).
+
+5. **`has_perm(perm, obj=None)`**
+
+    - Returns: Boolean indicating whether the user has a specific permission.
+    - Default: True for staff users.
+
+6. **`has_module_perms(app_label)`**
+    - Returns: Boolean indicating whether the user has permissions for an app.
+    - Default: True.
+
+### Manager Methods
+
+1. **`create_user(username, email_address, password=None, **extra_fields)`\*\*
+
+    - Creates and saves a regular user.
+    - Validates the presence of `username` and at least one contact method (email or phone).
+    - Returns: A user instance.
+
+2. **`create_superuser(username, email_address, password, **extra_fields)`\*\*
+    - Creates and saves a superuser with all permissions.
+    - Returns: A superuser instance.
 
 ## Implementation
 
@@ -44,7 +146,7 @@ AUTH_USER_MODEL = 'yourapp.User'
 
 ### Adding Custom Fields
 
-You can add any additional fields to your concrete model:
+You can add additional fields to your concrete model:
 
 ```python
 class User(AbstractBaseAccount):
@@ -60,7 +162,6 @@ The Meta class can be extended while maintaining the base constraints:
 ```python
 class User(AbstractBaseAccount):
     class Meta(AbstractBaseAccount.Meta):
-        # Inherit all abstract model constraints and indexes
         db_table = 'users'
         verbose_name = 'User'
         verbose_name_plural = 'Users'
@@ -123,10 +224,10 @@ superuser = User.objects.create_superuser(
 
 The model includes several built-in validations:
 
-1. Username is required and must be unique
-2. Either email or phone number must be provided
-3. Email and phone number must be unique when provided
-4. Custom validations can be added in the concrete model
+1. Username is required and must be unique.
+2. Either email or phone number must be provided.
+3. Email and phone number must be unique when provided.
+4. Custom validations can be added in the concrete model.
 
 ## Model Constraints
 
@@ -150,127 +251,29 @@ class User(AbstractBaseAccount):
 
 ## Performance Considerations
 
--   The model includes optimized indexes for username, email, and phone number lookups
--   Additional indexes can be added based on your specific query patterns
--   The `get_primary_contact` method is implemented as a property for better performance
+-   Optimized indexes for username, email, and phone number lookups.
+-   Additional indexes can be added based on your specific query patterns.
+-   The `get_primary_contact` method is implemented as a property for better performance.
 
 ## Security Features
 
--   Password updates are tracked via `password_last_updated`
--   Separate verification status for email and phone number
--   Built-in support for Django's permission system
--   Inactive user handling via `is_active` field
+-   Password updates are tracked via `password_last_updated`.
+-   Separate verification statuses for email and phone number.
+-   Built-in support for Django's permission system.
+-   Inactive user handling via `is_active` field.
 
 ## Best Practices
 
-1. Always inherit from AbstractBaseAccount for custom user models
-2. Maintain the unique constraints when extending
-3. Use the provided manager methods for user creation
-4. Implement custom clean methods in concrete models when adding validation
-5. Add appropriate indexes for any additional fields used in lookups
+1. Always inherit from `AbstractBaseAccount` for custom user models.
+2. Maintain the unique constraints when extending.
+3. Use the provided manager methods for user creation.
+4. Implement custom clean methods in concrete models when adding validation.
+5. Add appropriate indexes for any additional fields used in lookups.
 
 ## Note on Migrations
 
 When extending this model, remember to:
 
-1. Make migrations after adding new fields or constraints
-2. Review generated migrations for correct constraint and index names
-3. Handle existing data appropriately when adding new required fields
-
-## Creating Superuser via Shell
-
-Since the default `python manage.py createsuperuser` command doesn't handle custom required fields properly, you can create a superuser through the Django shell. Here's how:
-
-### Method 1: Using Django Shell
-
-```bash
-python manage.py shell
-```
-
-Then in the Python shell:
-
-```python
-# Import your User model - adjust the import path according to your project
-from your_app.models import User
-
-# Create superuser with email
-user = User.objects.create_user(
-    username='admin',
-    password='your_secure_password',
-    email_address='admin@example.com'  # Required contact method
-)
-
-# Make the user a superuser
-user.is_superuser = True
-user.is_staff = True
-user.save()
-
-# Verify the superuser status
-print(f"Is superuser: {user.is_superuser}")
-print(f"Is staff: {user.is_staff}")
-```
-
-### Method 2: Use a Management Command
-
-### Using the Custom Superuser Command
-
-To create a superuser using the custom command:
-
-```bash
-# Create superuser with email
-python manage.py waanverse-createsuperuser --username admin3 --password secure_password --email admin3@example.com
-```
-
-Or:
-
-```bash
-# Create superuser with phone number
-python manage.py waanverse-createsuperuser --username admin4 --password secure_password --phone +1234567890
-```
-
-Or:
-
-```bash
-# Create superuser with email and extra fields
-python manage.py waanverse-createsuperuser --username admin5 --password secure_password --email admin5@example.com --extras '{"first_name": "John", "last_name": "Doe"}'
-```
-
-Or:
-
-```bash
-# Create superuser with phone and extra fields
-python manage.py waanverse-createsuperuser --username admin6 --password secure_password --phone +1234567890 --extras '{"department": "IT", "location": "HQ"}'
-```
-
-#### Command Arguments
-
--   `--username`: (Required) The username for the superuser
--   `--password`: (Required) The password for the superuser
--   `--email`: (Optional) Email address for the superuser
--   `--phone`: (Optional) Phone number for the superuser
--   `--extras`: (Optional) JSON string containing additional fields
-
-Note: Either `--email` or `--phone` must be provided, but not necessarily both.
-
-### Verifying Superuser Creation
-
-You can verify the superuser was created correctly:
-
-```python
-# In Django shell
-from your_app.models import User
-
-# Check user exists and has correct permissions
-user = User.objects.get(username='admin')
-print(f"Is superuser: {user.is_superuser}")
-print(f"Is staff: {user.is_staff}")
-print(f"Contact method: {user.get_primary_contact}")
-```
-
-### Important Notes
-
-1. Always use strong passwords in production
-2. Store sensitive credentials securely
-3. Consider implementing proper logging for superuser creation
-4. Remember to handle exceptions appropriately in production code
-5. Consider adding additional validation in the management command
+1. Make migrations after adding new fields or constraints.
+2. Review generated migrations for correct constraint and index names.
+3. Handle existing data appropriately when adding new required fields.

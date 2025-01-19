@@ -109,7 +109,7 @@ For detailed setup instructions, visit our [Installation Guide](installation.md)
 ## Support and Contact
 
 -   **Technical Support**: [support@waanverse.com](mailto:support@waanverse.com)
--   **Documentation**: [https://docs.waanverse.com](https://docs.waanverse.com)
+-   **Documentation**: [https://dj-waanverse-auth.waanverse.com](https://dj-waanverse-auth.waanverse.com)
 -   **Company Website**: [https://www.waanverse.com](https://www.waanverse.com)
 
 ## License and Usage

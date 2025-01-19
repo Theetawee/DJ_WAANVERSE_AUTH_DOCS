@@ -45,7 +45,7 @@ Include the `DeviceAuthMiddleware` in your `MIDDLEWARE` settings:
 ```python
 MIDDLEWARE = [
     ...
-    "dj_waanverse_auth.middleware.DeviceAuthMiddleware",
+    "dj_waanverse_auth.middleware.AuthCookieMiddleware",
 ]
 ```
 
@@ -85,7 +85,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "dj_waanverse_auth.authentication.JWTAuthentication",
     ),
-    "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
 ```
 
