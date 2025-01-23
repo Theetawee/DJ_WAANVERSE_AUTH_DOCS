@@ -18,6 +18,8 @@ nav:
           - Configuration: configuration/index.md
     - API Documentation:
           - Endpoints: endpoints.md
+    - Advanced:
+          - Email Templates: advanced/email-templates.md
 
 # Theme Configuration
 theme:
@@ -166,4 +168,3 @@ extra:
 
     # Disable generator notice
     generator: false
-
