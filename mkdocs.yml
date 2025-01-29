@@ -14,8 +14,8 @@ nav:
           - Introduction: index.md
           - Installation Guide: installation.md
     - Configuration:
-          - Configuring User Model: configuration/configuring-user-model.md
           - Configuration: configuration/index.md
+          - Configuring User Model: configuration/configuring-user-model.md
     - API Documentation:
           - Endpoints: endpoints.md
     - Middleware:

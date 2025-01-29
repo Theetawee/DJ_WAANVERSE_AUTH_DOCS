@@ -4,68 +4,56 @@ This document details the implementation and usage of the `AbstractBaseAccount` 
 
 ## Key Features
 
--   **Username-based authentication** with support for email and phone number.
--   **Conditional unique constraints** for email and phone number.
--   **Verification status tracking** for both email and phone.
--   Extensible abstract base class.
--   Custom model manager for user creation.
--   Password management tracking.
--   Comprehensive indexing for optimized query performance.
+- **Username-based authentication** with support for email and phone number.
+- **Conditional unique constraints** for email and phone number.
+- **Verification status tracking** for both email and phone.
+- Extensible abstract base class.
+- Custom model manager for user creation.
+- Password management tracking.
+- Comprehensive indexing for optimized query performance.
 
 ## Attributes and Methods
 
 ### Model Attributes
 
 1. **`username`**
-
     - Type: `CharField`
-    - Description: Unique primary identifier for the user (10 characters max).
-    - Index: Yes.
+    - Description: Unique primary identifier for the user (`USERNAME_MAX_LENGTH` characters max).
 
 2. **`email_address`**
-
     - Type: `EmailField`
-    - Description: User's email address; optional but unique when provided.
-    - Index: Yes.
+    - Description: User's email address; **required and unique**.
 
 3. **`phone_number`**
-
     - Type: `CharField`
     - Description: User's phone number in E.164 format; optional but unique when provided.
-    - Index: Yes.
 
 4. **`date_joined`**
-
     - Type: `DateTimeField`
     - Description: Timestamp of user creation.
     - Default: Auto-set at creation.
 
 5. **`last_login`**
-
     - Type: `DateTimeField`
     - Description: Timestamp of the last user login.
     - Default: Null/Blank.
 
 6. **`is_active`**
-
     - Type: `BooleanField`
     - Description: Indicates if the user is active.
     - Default: True.
 
 7. **`is_staff`**
-
     - Type: `BooleanField`
     - Description: Indicates if the user has staff permissions.
     - Default: False.
 
 8. **`password_last_updated`**
-
     - Type: `DateTimeField`
     - Description: Tracks the last password change.
     - Default: Current timestamp.
 
 9. **`email_verified`**
-
     - Type: `BooleanField`
     - Description: Indicates if the email address has been verified.
     - Default: False.
@@ -78,23 +66,18 @@ This document details the implementation and usage of the `AbstractBaseAccount` 
 ### Model Methods
 
 1. **`__str__()`**
-
     - Returns: Primary contact method (email or phone) or username.
 
 2. **`get_full_name()`**
-
     - Returns: Full name of the user (inherited models can customize this).
 
 3. **`get_short_name()`**
-
     - Returns: A short name for the user, usually the username.
 
 4. **`get_primary_contact` (Property)**
-
     - Returns: The primary contact method (email if available, else phone).
 
 5. **`has_perm(perm, obj=None)`**
-
     - Returns: Boolean indicating whether the user has a specific permission.
     - Default: True for staff users.
 
@@ -104,13 +87,12 @@ This document details the implementation and usage of the `AbstractBaseAccount` 
 
 ### Manager Methods
 
-1. **`create_user(username, email_address, password=None, **extra_fields)`\*\*
-
+1. **`create_user(username, email_address, password=None, **extra_fields)`**
     - Creates and saves a regular user.
-    - Validates the presence of `username` and at least one contact method (email or phone).
+    - Validates the presence of `username` and **requires email_address**.
     - Returns: A user instance.
 
-2. **`create_superuser(username, email_address, password, **extra_fields)`\*\*
+2. **`create_superuser(username, email_address, password, **extra_fields)`**
     - Creates and saves a superuser with all permissions.
     - Returns: A superuser instance.
 
@@ -225,15 +207,16 @@ superuser = User.objects.create_superuser(
 The model includes several built-in validations:
 
 1. Username is required and must be unique.
-2. Either email or phone number must be provided.
-3. Email and phone number must be unique when provided.
-4. Custom validations can be added in the concrete model.
+2. **Email address is required** and must be unique.
+3. Either email or phone number must be provided.
+4. Phone number must be unique when provided.
+5. Custom validations can be added in the concrete model.
 
 ## Model Constraints
 
 ### Built-in Constraints
 
-The model includes conditional unique constraints for email and phone number, allowing them to be optional but unique when provided. These constraints are automatically inherited by concrete models.
+The model includes conditional unique constraints for email and phone number, ensuring that **email address is mandatory and unique**. These constraints are automatically inherited by concrete models.
 
 ### Adding Custom Constraints
 
@@ -251,16 +234,16 @@ class User(AbstractBaseAccount):
 
 ## Performance Considerations
 
--   Optimized indexes for username, email, and phone number lookups.
--   Additional indexes can be added based on your specific query patterns.
--   The `get_primary_contact` method is implemented as a property for better performance.
+- Optimized indexes for username, email, and phone number lookups.
+- Additional indexes can be added based on your specific query patterns.
+- The `get_primary_contact` method is implemented as a property for better performance.
 
 ## Security Features
 
--   Password updates are tracked via `password_last_updated`.
--   Separate verification statuses for email and phone number.
--   Built-in support for Django's permission system.
--   Inactive user handling via `is_active` field.
+- Password updates are tracked via `password_last_updated`.
+- Separate verification statuses for email and phone number.
+- Built-in support for Django's permission system.
+- Inactive user handling via `is_active` field.
 
 ## Best Practices
 
@@ -277,3 +260,7 @@ When extending this model, remember to:
 1. Make migrations after adding new fields or constraints.
 2. Review generated migrations for correct constraint and index names.
 3. Handle existing data appropriately when adding new required fields.
+
+---
+
+This update ensures the email address is required for user creation, aligning with your changes.

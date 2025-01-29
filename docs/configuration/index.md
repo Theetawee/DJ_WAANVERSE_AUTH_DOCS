@@ -112,6 +112,13 @@ Ensure that the correct configurations are applied based on the environment to m
     -   Default: `10`
     -   Description: The number of recovery codes generated for MFA.
 
+-   **`MFA_DEBUG_CODE`**
+
+    -   Type: `str`
+    -   Required: `False`
+    -   Default: `None`
+    -   Description: The debug code for MFA that is used to bypass the MFA verification.
+
 -   **`MFA_ISSUER_NAME`**
 
     -   Type: `str`
