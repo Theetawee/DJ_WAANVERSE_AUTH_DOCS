@@ -40,20 +40,15 @@ INSTALLED_APPS = [
 
 ### 2. Add Middleware
 
-Include the `DeviceAuthMiddleware` in your `MIDDLEWARE` settings:
+Include the middleware in your `MIDDLEWARE` settings:
 
-```python
-MIDDLEWARE = [
-    ...
-    "dj_waanverse_auth.middleware.AuthCookieMiddleware",
-]
-```
+View [Middleware](middleware/index.md)
 
 ---
 
 ### 3. Set Custom User Model
 
-Set up the user model as described in [Configuring User Model](/configuration/configuring-user-model).
+Set up the user model as described in [Configuring User Model](configuration/configuring-user-model.md).
 
 Specify your custom user model in `settings.py`:
 
@@ -93,6 +88,8 @@ REST_FRAMEWORK = {
 ### 6. Add Private/Public Key Paths
 
 Add the `PUBLIC_KEY_PATH` and `PRIVATE_KEY_PATH` to the package's settings configuration in your `settings.py`:
+
+Keys can be generated from [CryptoTools.net](https://cryptotools.net/rsagen)
 
 ```python
 WAANVERSE_AUTH_CONFIG = {

@@ -19,8 +19,7 @@ nav:
     - API Documentation:
           - Endpoints: endpoints.md
     - Middleware:
-          - Client Hints: middleware/client_hints.md
-          - Auth Middleware: middleware/auth_middleware.md
+          - Middleware: middleware/index.md
     - Advanced:
           - Email Templates: advanced/email-templates.md
 
