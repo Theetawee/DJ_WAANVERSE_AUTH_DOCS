@@ -342,7 +342,14 @@ Ensure that the correct configurations are applied based on the environment to m
     -   Description: The physical address of the platform.
 
 -   **`PLATFORM_CONTACT_EMAIL`**
+
     -   Type: `str`
     -   Required: `False`
     -   Default: `"support@waanverse.com"`
     -   Description: The contact email address for the platform.
+
+-   DISABLE_SIGNUP: `bool`
+    -   Type: `bool`
+    -   Required: `False`
+    -   Default: `False`
+    -   Description: Whether to disable the signup feature.
