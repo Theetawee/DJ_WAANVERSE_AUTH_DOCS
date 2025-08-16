@@ -1,98 +1,71 @@
-### Email Service Documentation
+# Email Service Documentation
 
-The `EmailService` class handles the sending of various types of emails for user interaction and security purposes. This documentation explains what emails are sent, the context available in each email, and how to override the templates.
-
----
-
-### Emails Sent by the Service
-
-#### 1. **Verify Email Address**
-- **Description**: This email is sent to verify the user's email address during sign-up or account creation.
-- **Context Passed**:
-  - `code`: The verification code to validate the email address.
-  - `site_name`: The platform name.
-  - `company_address`: The platform's physical address.
-  - `support_email`: The platform's support email address.
-- **Template**:
-  - Default location: `emails/verify_email.html`
-  - **Override**: Create a base template folder in your root project, add the `emails` folder, and add the `verify_email.html` file.
+The `EmailService` class is responsible for sending emails used during authentication and login processes. This documentation explains which emails are sent, what context is available, and how to override the templates.
 
 ---
 
-#### 2. **Login Email**
-- **Description**: Sent each time a user logs into their account to alert them of the login activity.
-- **Context Passed**:
-  - `user`: The user object.
-  - `ip_address`: The IP address of the login attempt.
-  - `device_info`: Information about the device used for login.
-  - `location_info`: The approximate location of the login attempt (based on IP address).
-  - `timestamp`: The timestamp of the login.
-  - `site_name`: The platform name.
-  - `company_address`: The platform's physical address.
-  - `support_email`: The platform's support email address.
-- **Template**:
-  - Default location: `emails/login_alert.html`
-  - **Override**: Create a base template folder in your root project, add the `emails` folder, and add the `login_alert.html` file.
+## Emails Sent by the Service
+
+### 1. **Verify Email Address**
+
+-   **Description**: Sent during sign-up to verify the user’s email address.
+-   **Context Passed**:
+
+    -   `code`: The verification code.
+    -   `user`: The user object.
+
+-   **Template**:
+
+    -   Default: `emails/verify_email.html`
+    -   **Override**: Create `emails/verify_email.html` inside your project’s base templates folder.
 
 ---
 
-#### 3. **Password Reset Email**
-- **Description**: Sent when a user requests to reset their password.
-- **Context Passed**:
-  - `code`: The password reset token.
-  - `expiry_time`: The time before the reset token expires ({time} minutes).
-  - `site_name`: The platform name.
-  - `company_address`: The platform's physical address.
-  - `support_email`: The platform's support email address.
-- **Template**:
-  - Default location: `emails/password_reset.html`
-  - **Override**: Create a base template folder in your root project, add the `emails` folder, and add the `password_reset.html` file.
+### 2. **Login Code**
+
+-   **Description**: Sent when a user attempts to log in with their email. Contains the one-time login code.
+-   **Context Passed**:
+
+    -   `code`: The login code.
+    -   `user`: The user object.
+
+-   **Template**:
+
+    -   Default: `emails/login_code.html`
+    -   **Override**: Create `emails/login_code.html` inside your project’s base templates folder.
 
 ---
 
-#### 4. **Account Locked Notification**
-- **Description**: Sent when a user's account is locked due to multiple failed login attempts.
-- **Context Passed**:
-  - `support_email`: The platform's support email address.
-  - `locked_time`: The timestamp when the account was locked.
-  - `site_name`: The platform name.
-  - `company_address`: The platform's physical address.
-- **Template**:
-  - Default location: `emails/account_locked.html`
-  - **Override**: Create a base template folder in your root project, add the `emails` folder, and add the `account_locked.html` file.
+### 3. **Login Alert**
+
+-   **Description**: Sent after a successful login to notify the user about the activity.
+-   **Context Passed**:
+
+    -   `user`: The user object.
+    -   `ip_address`: IP address of the login attempt.
+    -   `device`: Information about the device.
+    -   `location`: Approximate location (from IP).
+
+-   **Template**:
+
+    -   Default: `emails/login_alert.html`
+    -   **Override**: Create `emails/login_alert.html` inside your project’s base templates folder.
 
 ---
 
-#### 5. **MFA Change Notification**
-- **Description**: Sent when Multi-Factor Authentication (MFA) is enabled or disabled.
-- **Context Passed**:
-  - `mfa_time`: The timestamp when MFA was enabled or disabled.
-  - `site_name`: The platform name.
-  - `company_address`: The platform's physical address.
-  - `support_email`: The platform's support email address.
-- **Template**:
-  - Default location: `emails/mfa_enabled.html` (for enabling MFA) or `emails/mfa_disabled.html` (for disabling MFA).
-  - **Override**: Create a base template folder in your root project, add the `emails` folder, and add the respective template files.
+## How to Override Templates
+
+1. Create a `templates` folder in your root project (if not already present).
+2. Inside it, create an `emails` folder.
+3. Add the template file you want to override (`verify_email.html`, `login_code.html`, `login_alert.html`).
+4. Use the context variables listed above inside your template with `{{ variable_name }}`.
+
+Example for `verify_email.html`:
+
+```html
+<p>Welcome to {{ site_name }}!</p>
+<p>Your verification code is: <strong>{{ code }}</strong></p>
+<p>If you didn’t request this, please contact {{ support_email }}.</p>
+```
 
 ---
-
-### How to Override Email Templates
-To customize the email templates:
-1. Create a base template folder in your root project.
-2. Inside the base folder, create a folder named `emails`.
-3. Add the specific email template file(s) you wish to override, following the naming convention mentioned above (e.g., `verify_email.html`, `login_alert.html`).
-4. Customize the templates as needed.
-
-Templates must include placeholders for the context variables passed by the service. For example, the `verify_email.html` template should include `{{ code }}` to display the verification code.
-
----
-
-### Security Notifications
-If `EMAIL_SECURITY_NOTIFICATIONS_ENABLED` is set to `True` in the settings, the following security-related emails are sent:
-- **Verify Email Address**: To confirm email ownership during sign-up.
-- **Login Email**: Alerts users of new login attempts.
-- **Account Locked Notification**: Notifies users when their account is locked.
-- **MFA Change Notification**: Informs users when MFA settings are modified.
-
-Ensure the templates for these emails are properly overridden if customization is needed.
-
