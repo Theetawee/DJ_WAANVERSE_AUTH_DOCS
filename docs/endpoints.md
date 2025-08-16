@@ -1,182 +1,229 @@
-# API Routes Documentation
+# API Endpoints
 
-This document provides detailed information about the available API endpoints for authentication and user management.
+`dj_waanverse_auth` provides authentication via **magic codes (email)** and **passkeys**. All endpoints return JSON responses.
 
-## Authorization Endpoints
+---
 
-### Refresh Token
+## 1. Signup with Magic Code
 
--   **URL:** `/refresh/`
--   **Method:** GET
--   **Description:** Refreshes the user's access token
--   **Name:** `dj_waanverse_auth_refresh_access_token`
--   **Authentication Required:** Yes
+### Step 1: Request Magic Code
 
-### Current User
+-   **Frontend Path:** `/signup/`
+-   **Django Name:** `dj_waanverse_auth_signup`
+-   **Method:** `POST`
 
--   **URL:** `/me/`
--   **Method:** GET
--   **Description:** Retrieves the currently authenticated user's information
--   **Name:** `dj_waanverse_auth_authenticated_user`
--   **Authentication Required:** Yes
+**Request Body:**
 
-### Logout
+```json
+{
+    "email_address": "user@example.com"
+}
+```
 
--   **URL:** `/logout/`
--   **Method:** POST
--   **Description:** Logs out the current user and invalidates their session
--   **Name:** `dj_waanverse_auth_logout`
--   **Required Data:** None
--   **Authentication Required:** Yes
+**Description:**
 
-### Home Page
+-   Sends a one-time magic code to the email address.
+-   User is inactive until verification.
+-   Magic code is valid for 10 minutes.
 
--   **URL:** `/home/`
--   **Method:** GET
--   **Description:** Returns the home page for authenticated users
--   **Name:** `dj_waanverse_auth_home_page`
--   **Authentication Required:** Yes
+---
 
-## Login Endpoints
+### Step 2: Verify Code and Activate Account
 
-### Login
+-   **Frontend Path:** `/signup/`
+-   **Django Name:** `dj_waanverse_auth_signup`
+-   **Method:** `POST`
 
--   **URL:** `/login/`
--   **Method:** POST
--   **Description:** Authenticates a user and creates a new session
--   **Name:** `dj_waanverse_auth_login`
--   **Required Data:**
-    -   `login_field`: The user's email, username, or phone number (string)
-    -   `password`: The user's password (string)
-    -   `turnstile_token`: (Optional) Token for Turnstile CAPTCHA validation (string)
--   **Authentication Required:** No
+**Request Body:**
 
-## Signup Endpoints
+```json
+{
+    "email_address": "user@example.com",
+    "code": "123456"
+}
+```
 
-### Signup
+**Description:**
 
--   **URL:** `/signup/`
--   **Method:** POST
--   **Description:** Creates a new user account
--   **Name:** `dj_waanverse_auth_signup`
--   **Required Data:**
-    -   `username`: The desired username (string)
-    -   `email_address`: The user's email address (string)
-    -   `password`: The user's password (string)
-    -   `confirm_password`: The user's password confirmation (string)
--   **Authentication Required:** No
+-   Verifies the magic code.
+-   Creates and logs in the user.
+-   Session is started, and `sid` must be stored by frontend.
 
-### Initiate Email Verification
+---
 
--   **URL:** `/signup/email/initiate-verification/`
--   **Method:** POST
--   **Description:** Sends an email verification link to the user
--   **Name:** `dj_waanverse_auth_initiate_email_verification`
--   **Required Data:**
-    -   `email_address`: The email address to verify (string)
--   **Authentication Required:** No
+## 2. Passkey Registration
 
-### Verify Email
+### Step 1: Request Passkey Registration Options
 
--   **URL:** `/signup/email/verify/`
--   **Method:** POST
--   **Description:** Verifies the user's email address using the verification token
--   **Name:** `dj_waanverse_auth_verify_email`
--   **Required Data:**
-    -   `code`: The email verification token (string)
-    -   `email_address`: The email address to verify (string)
--   **Authentication Required:** No
+-   **Frontend Path:** `/login/webauthn/options/`
+-   **Django Name:** `dj_waanverse_auth_generate_registration_options`
+-   **Method:** `POST`
+-   **Requirements:** User must be logged in
 
-## Multi-Factor Authentication (MFA) Endpoints
+---
 
-### Get MFA Secret
+### Step 2: Verify Passkey Registration
 
--   **URL:** `/mfa/get-secret/`
--   **Method:** POST
--   **Description:** Generates and returns an MFA secret for the user
--   **Name:** `dj_waanverse_auth_get_mfa_secret`
--   **Authentication Required:** Yes
+-   **Frontend Path:** `/login/webauthn/verify/`
+-   **Django Name:** `dj_waanverse_auth_verify_registration`
+-   **Method:** `POST`
 
-### Activate MFA
+**Request Body:**
 
--   **URL:** `/mfa/activate/`
--   **Method:** POST
--   **Description:** Activates MFA for the user's account
--   **Name:** `dj_waanverse_auth_activate_mfa`
--   **Required Data:**
-    -   `code`: The MFA code for activation (string)
--   **Authentication Required:** Yes
+```json
+{
+    "id": "credential_id",
+    "rawId": "raw_credential_id",
+    "type": "public-key",
+    "response": {
+        "attestationObject": "...",
+        "clientDataJSON": "..."
+    },
+    "challengeId": "challenge_uuid",
+    "name": "My Device"
+}
+```
 
-### Deactivate MFA
+---
 
--   **URL:** `/mfa/deactivate/`
--   **Method:** POST
--   **Description:** Deactivates MFA for the user's account
--   **Name:** `dj_waanverse_auth_deactivate_mfa`
--   **Required Data:**
-    -   `code`: The MFA code for deactivation (string)
-    -   `password`: The user's password (string)
--   **Authentication Required:** Yes
+## 3. Login
 
-### MFA Login
+### Magic Code Login
 
--   **URL:** `/mfa/login/`
--   **Method:** POST
--   **Description:** Handles the MFA step of the login process
--   **Name:** `dj_waanverse_auth_mfa_login`
--   **Required Data:**
-    -   `code`: The MFA code for login (string)
-    -   `user_id`: The user's unique identifier (string)
--   **Authentication Required:** Yes
+#### Step 1: Request Login Code
 
-### Get Recovery Codes
+-   **Frontend Path:** `/login/`
+-   **Django Name:** `dj_waanverse_auth_login`
+-   **Method:** `POST`
+-   **Description:** Magic code sent to email, valid for 10 minutes.
 
--   **URL:** `/mfa/recovery-codes/`
--   **Method:** GET
--   **Description:** Retrieves the user's MFA recovery codes
--   **Name:** `dj_waanverse_auth_get_recovery_codes`
--   **Authentication Required:** Yes
+**Request Body:**
 
-### Generate Recovery Codes
+```json
+{
+    "email_address": "user@example.com"
+}
+```
 
--   **URL:** `/mfa/generate-recovery-codes/`
--   **Method:** POST
--   **Description:** Generates new recovery codes for the user
--   **Name:** `dj_waanverse_auth_generate_recovery_codes`
--   **Required Data:** None
--   **Authentication Required:** Yes
+---
 
-## Password Management Endpoints
+#### Step 2: Verify Magic Code
 
-### Initiate Password Reset
+-   **Frontend Path:** `/login/`
+-   **Django Name:** `dj_waanverse_auth_login`
+-   **Method:** `POST`
 
--   **URL:** `/password/reset/`
--   **Method:** POST
--   **Description:** Initiates the password reset process by sending a reset link
--   **Name:** `dj_waanverse_auth_initiate_password_reset`
--   **Required Data:**
-    -   `email_address`: The email address to send the reset link (string)
--   **Authentication Required:** No
+**Request Body:**
 
-### Reset Password
+```json
+{
+    "email_address": "user@example.com",
+    "code": "123456"
+}
+```
 
--   **URL:** `/password/new-password/`
--   **Method:** POST
--   **Description:** Allows users to set a new password using a reset token
--   **Name:** `dj_waanverse_auth_reset_password`
--   **Required Data:**
-    -   `code`: The password reset token (string)
-    -   `new_password`: The new password (string)
-    -   `confirm_password`: The confirmation of the new password (string)
-    -   `email_address`: The email address associated with the reset token (string)
--   **Authentication Required:** No
+---
 
-## Base URL Structure
+### Passkey Login
 
-All endpoints are organized under the following structure:
+#### Step 1: Request Passkey Challenge
 
--   Authentication endpoints are at the root level
--   Login-related endpoints are under `/login/`
--   MFA-related endpoints are under `/mfa/`
--   Signup-related endpoints are under `/signup/`
--   Password management endpoints are under `/password/`
+-   **Frontend Path:** `/login/webauthn/`
+-   **Django Name:** `dj_waanverse_auth_generate_authentication_options`
+-   **Method:** `POST`
+
+---
+
+#### Step 2: Verify Passkey Login
+
+-   **Frontend Path:** `/login/webauthn/verify-challenge/`
+-   **Django Name:** `dj_waanverse_auth_verify_authentication`
+-   **Method:** `POST`
+
+**Request Body:**
+
+```json
+{
+    "id": "credential_id",
+    "rawId": "raw_credential_id",
+    "type": "public-key",
+    "response": {
+        "authenticatorData": "...",
+        "clientDataJSON": "...",
+        "signature": "...",
+        "userHandle": "..."
+    }
+}
+```
+
+---
+
+## 4. Logout
+
+### Step 1: Logout Active Session
+
+-   **Frontend Path:** `/logout/`
+-   **Django Name:** `dj_waanverse_auth_logout`
+-   **Method:** `POST`
+
+**Request Body:**
+
+```json
+{
+    "access_token": "user_access_token"
+}
+```
+
+**Note:** Token can also be retrieved from cookie.
+
+---
+
+### Step 2: Delete Expired Session
+
+-   **Frontend Path:** `/sessions/<session_id>/`
+-   **Django Name:** `dj_waanverse_auth_delete_user_session`
+-   **Method:** `DELETE`
+
+**Request Body:**
+
+```json
+{
+    "sid": "abc123sessionid"
+}
+```
+
+---
+
+### Get User Sessions
+
+-   **Frontend Path:** `/sessions/`
+-   **Django Name:** `dj_waanverse_auth_get_user_sessions`
+-   **Method:** `GET`
+
+---
+
+### Refresh Access Token
+
+-   **Frontend Path:** `/refresh/`
+-   **Django Name:** `dj_waanverse_auth_refresh_access_token`
+-   **Method:** `POST`
+
+**Request Body:**
+
+```json
+{
+    "refresh_token": "user_refresh_token"
+}
+```
+
+**Note:** Token can also be retrieved from cookie.
+
+---
+
+### Get Authenticated User
+
+-   **Frontend Path:** `/me/`
+-   **Django Name:** `dj_waanverse_auth_authenticated_user`
+-   **Method:** `GET`
+
+---

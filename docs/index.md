@@ -1,121 +1,108 @@
-# Welcome to Dj Waanverse Auth
+# Dj Waanverse Auth
 
 [![PyPI version](https://badge.fury.io/py/dj-waanverse-auth.svg)](https://badge.fury.io/py/dj-waanverse-auth)
 [![License](https://img.shields.io/badge/license-Proprietary-blue.svg)](https://www.waanverse.com/licenses)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Django](https://img.shields.io/badge/django-5.0+-green.svg)](https://www.djangoproject.com/)
 
-## Enterprise-Grade Authentication for Modern Applications
+## Overview
 
-`dj_waanverse_auth` is a comprehensive authentication solution developed by [Waanverse Labs Inc.](https://www.waanverse.com), designed to meet the demanding security requirements of modern web and mobile applications. As the core authentication package powering Waanverse Labs' diverse software portfolio, it combines enterprise-level security with developer-friendly implementation.
+`dj_waanverse_auth` is a Django authentication package designed for modern applications, providing **passwordless authentication** using:
 
-## Key Features
+-   **Magic login codes via email**
+-   **Passkeys (WebAuthn)**
 
-### Core Authentication
+It simplifies user authentication while maintaining enterprise-grade security.
 
--   **🔐 JWT-Based Authentication**
+## Installation
 
-    -   Secure token generation and validation
-    -   Configurable token lifetime
-    -   Built-in protection against common JWT attacks
-
--   **🔄 Advanced Token Management**
-    -   Automatic token rotation
-    -   Refresh token mechanism
-    -   Blacklisting capabilities
-    -   Concurrent session management
-
-### Security Features
-
--   **🛡️ Multi-Factor Authentication (MFA)**
-
-    -   Time-based One-Time Password (TOTP) support
-    -   Recovery codes generation
-    -   Multiple device management
-    -   Customizable MFA workflows
-
--   **🍪 Cookie Security**
-    -   Secure, HttpOnly cookies
-    -   CSRF protection
-    -   SameSite policy enforcement
-    -   Cross-Origin Resource Sharing (CORS) controls
-
-### User Management
-
--   **👤 Account Operations**
-
-    -   Streamlined registration process
-    -   Password recovery workflow
-    -   Email verification system
-    -   Account deactivation handling
-
--   **📱 Device Management**
-    -   Device tracking
-    -   Session management
-    -   Location-based security
-    -   Suspicious activity detection
-
-## Why Choose Dj Waanverse Auth?
-
-### Built for Enterprise
-
--   **Scalability**: Handles millions of authentication requests
--   **Reliability**: Battle-tested in production environments
--   **Compliance**: Adheres to industry security standards
--   **Flexibility**: Extensive configuration options
-
-### Security-First Design
-
--   **Protected by Default**: Secure configurations out of the box
--   **Regular Updates**: Continuous security patches and improvements
--   **Best Practices**: Implements latest security recommendations
--   **Audit Trail**: Comprehensive logging and monitoring
-
-### Developer Experience
-
--   **Easy Integration**: Seamless Django REST framework compatibility
--   **Clear Documentation**: Extensive guides and API references
--   **Customizable**: Flexible override options
--   **Support**: Dedicated technical assistance
-
-## Technology Foundation
-
-Built on trusted open-source technologies:
-
--   Django (3.11+)
--   Django REST framework
--   PyOTP for MFA
--   PyJWT for JWT handling
--   user-agents for device detection
-
-## About Waanverse Labs
-
-Waanverse Labs is a global technology leader driving innovation across AI, cloud computing, and data-driven solutions. With a commitment to advancing the frontiers of technology, we develop transformations platforms and tools that empower businesses and individuals worldwide. Our mission is to build scalable, intelligent, and user-focused systems that redefine how technology integrates into everyday life. Join us in shaping the future, creating unprecedented value, and pushing the boundaries of what’s possible.
-
-## Development Team
-
-Led by [**Khaotungkulmethee Pattawee Drake**](https://www.waanverse.com/en-us/executives/khaotungkulmethee-pattawee/)  
-Chief Technology Officer  
-[tawee@waanverse.com](mailto:tawee@waanverse.com)
-
-## Getting Started
+Install the package via pip:
 
 ```bash
 pip install dj-waanverse-auth
 ```
 
-For detailed setup instructions, visit our [Installation Guide](installation.md).
+Add it to your `INSTALLED_APPS`:
 
-## Support and Contact
+```python
+INSTALLED_APPS = [
+    ...
+    "dj_waanverse_auth",
+]
+```
 
--   **Technical Support**: [support@waanverse.com](mailto:support@waanverse.com)
--   **Documentation**: [https://dj-waanverse-auth.waanverse.com](https://dj-waanverse-auth.waanverse.com)
--   **Company Website**: [https://www.waanverse.com](https://www.waanverse.com)
+Add the middleware:
 
-## License and Usage
+```python
+MIDDLEWARE = [
+    ...
+    "dj_waanverse_auth.middleware.auth.AuthCookieMiddleware",
+]
+```
 
-`dj_waanverse_auth` is available for free use within the Waanverse Labs ecosystem and by approved partners. For licensing inquiries, please contact our [software sales team](mailto:software@waanverse.com).
+## Authentication Backends
 
+Configure Django to use the custom authentication backends:
+
+```python
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "dj_waanverse_auth.backends.AuthenticationBackend",
+]
+```
+
+## Django REST Framework Configuration
+
+Set the default authentication classes:
+
+```python
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "dj_waanverse_auth.authentication.JWTAuthentication",
+    ),
+}
+```
+
+## Waanverse Auth Config
+
+Add Waanverse-specific configuration:
+
+```python
+
+WAANVERSE_AUTH_CONFIG = {
+    "PLATFORM_NAME": "My Platform",
+    "BASIC_ACCOUNT_SERIALIZER": "path.to.BasicAccountSerializer",
+    "PUBLIC_KEY_PATH": "path/to/public_key.pem",
+    "PRIVATE_KEY_PATH": "path/to/private_key.pem",
+    "WEBAUTHN_DOMAIN" = "example.com"
+    "WEBAUTHN_RP_NAME" = "My App",
+    "WEBAUTHN_ORIGIN" = "example.com",
+
+}
+```
+
+More detailed configuration options are available in the [Configuration Guide](configuration/index.md).
+
+## Email Backend (Required for Magic Codes)
+
+```python
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.example.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "your-email@example.com"
+EMAIL_HOST_PASSWORD = "your-password"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "noreply@example.com"
+```
+
+## Getting Started
+
+After installation and configuration:
+
+1. Users can log in using **magic codes** sent to their email.
+2. Users can register and authenticate with **passkeys** for stronger security.
 ---
 
-_Built with ❤️ by Waanverse Labs Inc. © 2024_
+_Built with ❤️ by Waanverse Labs Inc._
+
+```

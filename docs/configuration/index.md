@@ -1,355 +1,98 @@
-## Security Settings
+# Authentication Configuration
 
-### Configuration Overview
+`dj_waanverse_auth` provides a highly configurable authentication system. All configuration options are set via the `WAANVERSE_AUTH_CONFIG` dictionary in your Django `settings.py`.
 
-The settings for the authentication service are defined in the `WAANVERSE_AUTH_CONFIG` dictionary. This dictionary allows developers to customize the behavior of various components, including security, cookie handling, multi-factor authentication, user configurations, and more.
+The configuration is validated and stored in the `AuthConfig` class, with sensible defaults applied when values are not provided.
 
-Some configuration settings are optimized for specific environments, such as production or development. It is the developer’s responsibility to determine which settings are most appropriate for their use case and environment. For example, in a production environment, security-related settings like cookie security and token expiration times may require stricter configurations, while development environments may prioritize convenience over security for testing purposes.
+---
 
-Ensure that the correct configurations are applied based on the environment to maintain a secure and efficient authentication flow.
+## Basic Settings
 
--   **`PUBLIC_KEY_PATH`**
-
-    -   Type: `str`
-    -   Required: `True`
-    -   Default: None
-    -   Description: The file path to the pem public key file used for verifying tokens.
-
--   **`CLOUDFLARE_TURNSTILE_SECRET_KEY`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: None
-    -   Description: The secret key for Cloudflare Turnstile for captcha.
-
--   **`PRIVATE_KEY_PATH`**
-
-    -   Type: `str`
-    -   Required: `True`
-    -   Default: None
-    -   Description: The file path to the private key used for signing tokens.
-
--   **`USER_ID_CLAIM`**
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"id"`
-    -   Description: The claim in the token that identifies the user.
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `PLATFORM_NAME` | str | None | Name of your platform, e.g., `"Waanverse"` |
+| `BASIC_ACCOUNT_SERIALIZER` | str | `"dj_waanverse_auth.serializers.base_serializers.BasicAccountSerializer"` | Serializer class used to expose basic account information |
+| `PUBLIC_KEY_PATH` | str | None | Path to your JWT public key |
+| `PRIVATE_KEY_PATH` | str | None | Path to your JWT private key |
 
 ---
 
 ## Cookie Configuration
 
--   **`ACCESS_TOKEN_COOKIE_NAME`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"access_token"`
-    -   Description: The name of the cookie storing access tokens.
-
--   **`REFRESH_TOKEN_COOKIE_NAME`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"refresh_token"`
-    -   Description: The name of the cookie storing refresh tokens.
-
--   **`COOKIE_PATH`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"/"`
-    -   Description: The path for which cookies are valid.
-
--   **`COOKIE_DOMAIN`**
-
-    -   Type: `Optional[str]`
-    -   Required: `False`
-    -   Default: `None`
-    -   Description: The domain for which cookies are valid.
-
--   **`COOKIE_SAMESITE_POLICY`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"Lax"`
-    -   Description: The SameSite policy for cookies. Valid options: `"Strict"`, `"Lax"`, `"None"`.
-
--   **`COOKIE_SECURE`**
-
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `False`
-    -   Description: Whether cookies should only be transmitted over HTTPS.
-
--   **`COOKIE_HTTP_ONLY`**
-
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `True`
-    -   Description: Whether cookies should be inaccessible to JavaScript.
-
--   **`ACCESS_TOKEN_COOKIE_MAX_AGE`**
-
-    -   Type: `timedelta`
-    -   Required: `False`
-    -   Default: `30 minutes`
-    -   Description: The maximum age of the access token cookie.
-
--   **`REFRESH_TOKEN_COOKIE_MAX_AGE`**
-    -   Type: `timedelta`
-    -   Required: `False`
-    -   Default: `30 days`
-    -   Description: The maximum age of the refresh token cookie.
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `ACCESS_TOKEN_COOKIE_NAME` | str | `"access_token"` | Name of the access token cookie |
+| `REFRESH_TOKEN_COOKIE_NAME` | str | `"refresh_token"` | Name of the refresh token cookie |
+| `COOKIE_PATH` | str | `"/"` | Path where the cookies are valid |
+| `COOKIE_DOMAIN` | Optional[str] | None | Domain for the cookies |
+| `COOKIE_SAMESITE_POLICY` | str | `"Lax"` | SameSite policy for cookies |
+| `COOKIE_SECURE` | bool | `False` | Whether cookies require HTTPS |
+| `COOKIE_HTTP_ONLY` | bool | `True` | Prevent JavaScript access to cookies |
+| `ACCESS_TOKEN_COOKIE_MAX_AGE` | timedelta | 30 minutes | Expiration for access token cookie |
+| `REFRESH_TOKEN_COOKIE_MAX_AGE` | timedelta | 30 days | Expiration for refresh token cookie |
 
 ---
 
-## Multi-Factor Authentication (MFA)
+## Email & Verification
 
--   **`MFA_RECOVERY_CODE_COUNT`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `10`
-    -   Description: The number of recovery codes generated for MFA.
-
--   **`MFA_DEBUG_CODE`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `None`
-    -   Description: The debug code for MFA that is used to bypass the MFA verification.
-
--   **`MFA_ISSUER_NAME`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"Authentication Service"`
-    -   Description: The issuer name displayed in authentication apps.
-
--   **`MFA_CODE_LENGTH`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `6`
-    -   Description: The length of the MFA code.
-
--   **`EMAIL_SECURITY_NOTIFICATIONS_ENABLED`**
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `True`
-    -   Description: Whether email notifications are sent for Security events.
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `BLACKLISTED_EMAILS` | List[str] | `[]` | Emails that cannot register |
+| `BLACKLISTED_PHONE_NUMBERS` | List[str] | `[]` | Phone numbers that cannot register |
+| `ALLOWED_EMAIL_DOMAINS` | List[str] | `[]` | Restrict registration to specific domains |
+| `VERIFICATION_EMAIL_SUBJECT` | str | `"Verify your email address"` | Subject for verification emails |
+| `LOGIN_CODE_EMAIL_SUBJECT` | str | `"Login code"` | Subject for magic code emails |
+| `LOGIN_ALERT_EMAIL_SUBJECT` | str | `"Login alert"` | Subject for login alert notifications |
 
 ---
 
-## User Configuration
+## WebAuthn / Passkeys
 
--   **`USERNAME_MIN_LENGTH`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `4`
-    -   Description: The minimum length for usernames.
-
--   **`USERNAME_MAX_LENGTH`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `20`
-    -   Description: The maximum length for usernames.
-
--   **`RESERVED_USERNAMES`**
-    -   Type: `List[str]`
-    -   Required: `False`
-    -   Default: `["admin", "administrator", "root", "system"]`
-    -   Description: A list of reserved usernames that cannot be registered.
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `WEBAUTHN_DOMAIN` | str | None | Your domain for WebAuthn challenges, e.g., `"example.com"` |
+| `WEBAUTHN_RP_NAME` | str | None | Name of your relying party for WebAuthn |
+| `WEBAUTHN_ORIGIN` | str | None | The origin URL used to validate WebAuthn requests, e.g., `"https://example.com"` |
 
 ---
 
-## Serializer Classes
+## Admin & Signup
 
--   **`BASIC_ACCOUNT_SERIALIZER`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"dj_waanverse_auth.serializers.base_serializers.BasicAccountSerializer"`
-    -   Description: The serializer class for basic account information.
-
--   **`REGISTRATION_SERIALIZER`**
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"dj_waanverse_auth.serializers.signup_serializers.SignupSerializer"`
-    -   Description: The serializer class for user registration.
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `ENABLE_ADMIN_PANEL` | bool | `False` | Whether to enable Django admin integration for authentication data |
+| `DISABLE_SIGNUP` | bool | `False` | Disable user signup entirely |
 
 ---
 
-## Email Settings
+## Reserved Usernames
 
--   **`EMAIL_VERIFICATION_CODE_LENGTH`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `6`
-    -   Description: The length of email verification codes.
-
--   **`EMAIL_VERIFICATION_CODE_IS_ALPHANUMERIC`**
-
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `False`
-    -   Description: Whether email verification codes are alphanumeric.
-
--   **`EMAIL_SECURITY_NOTIFICATIONS_ENABLED`**
-
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `True`
-    -   Description: Whether security notifications are sent via email.
-
--   **`EMAIL_THREADING_ENABLED`**
-
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `True`
-    -   Description: Whether email operations use threading to improve performance.
-
--   **`BLACKLISTED_EMAILS`**
-
-    -   Type: `List[str]`
-    -   Required: `False`
-    -   Default: `[]`
-    -   Description: A list of blacklisted email addresses.
-
--   **`DISPOSABLE_EMAIL_DOMAINS`**
-
-    -   Type: `List[str]`
-    -   Required: `False`
-    -   Default: `[]`
-    -   Description: A list of disposable email domains that are not allowed.
-
--   **`EMAIL_BATCH_SIZE`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `50`
-    -   Description: The batch size for email operations.
-
--   **`EMAIL_RETRY_ATTEMPTS`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `3`
-    -   Description: The number of retry attempts for email delivery.
-
--   **`EMAIL_RETRY_DELAY`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `5`
-    -   Description: The delay (in seconds) between email delivery retries.
-
--   **`EMAIL_MAX_RECIPIENTS`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `50`
-    -   Description: The maximum number of recipients per email.
-
--   **`EMAIL_THREAD_POOL_SIZE`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `5`
-    -   Description: The thread pool size for email operations.
-
--   **`VERIFICATION_EMAIL_SUBJECT`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"Verify your email address"`
-    -   Description: The subject line for email verification messages.
-
--   **`VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_MINUTES`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `15`
-    -   Description: The expiration time for email verification codes (in minutes).
-
--   **`LOGIN_ALERT_EMAIL_SUBJECT`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"New login alert"`
-    -   Description: The subject line for login alert emails.
+```python
+RESERVED_USERNAMES = ["admin", "administrator", "root", "system"]
+```
 
 ---
 
-## Password Reset
+## Example `settings.py` Usage
 
--   **`PASSWORD_RESET_CODE_EXPIRY_IN_MINUTES`**
+```python
+import os
+from datetime import timedelta
 
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `10`
-    -   Description: The expiration time for password reset codes (in minutes).
+WAANVERSE_AUTH_CONFIG = {
+    "PLATFORM_NAME": "Waanverse",
+    "BASIC_ACCOUNT_SERIALIZER": "accounts.serializers.BasicAccountSerializer",
+    "PUBLIC_KEY_PATH": os.path.join(BASE_DIR, "secrets/public_key.pem"),
+    "PRIVATE_KEY_PATH": os.path.join(BASE_DIR, "secrets/private_key.pem"),
+    "WEBAUTHN_DOMAIN": "example.com",
+    "WEBAUTHN_RP_NAME": "My App",
+    "WEBAUTHN_ORIGIN": "https://example.com",
+    "ACCESS_TOKEN_COOKIE_MAX_AGE": timedelta(minutes=30),
+    "REFRESH_TOKEN_COOKIE_MAX_AGE": timedelta(days=30),
+}
+```
 
--   **`PASSWORD_RESET_CODE_LENGTH`**
-
-    -   Type: `int`
-    -   Required: `False`
-    -   Default: `7`
-    -   Description: The length of password reset codes.
-
--   **`PASSWORD_RESET_EMAIL_SUBJECT`**
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"Password reset request"`
-    -   Description: The subject line for password reset emails.
-
----
-
-## Admin Interface
-
--   **`ENABLE_ADMIN_PANEL`**
-
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `False`
-    -   Description: Whether the admin panel is enabled.
-
--   **`USE_UNFOLD_THEME`**
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `False`
-    -   Description: Whether to use the "unfold" theme for the admin panel.
+> This configuration provides a full setup for magic code and passkey authentication. You can override any default to match your security and business requirements.
 
 ---
 
-## Branding
-
--   **`PLATFORM_NAME`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"Authentication Service"`
-    -   Description: The name of the platform.
-
--   **`PLATFORM_ADDRESS`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"123 Main St."`
-    -   Description: The physical address of the platform.
-
--   **`PLATFORM_CONTACT_EMAIL`**
-
-    -   Type: `str`
-    -   Required: `False`
-    -   Default: `"support@waanverse.com"`
-    -   Description: The contact email address for the platform.
-
--   DISABLE_SIGNUP: `bool`
-    -   Type: `bool`
-    -   Required: `False`
-    -   Default: `False`
-    -   Description: Whether to disable the signup feature.

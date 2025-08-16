@@ -10,163 +10,144 @@ edit_uri: edit/main/docs/
 
 # Navigation Structure
 nav:
-    - Getting Started:
-          - Introduction: index.md
-          - Installation Guide: installation.md
-    - Configuration:
-          - Configuration: configuration/index.md
-          - Configuring User Model: configuration/configuring-user-model.md
-    - API Documentation:
-          - Endpoints: endpoints.md
-    - Middleware:
-          - Middleware: middleware/index.md
-    - Advanced:
-          - Email Templates: advanced/email-templates.md
+  - Home: index.md
+  - Configuration:
+      - Configuration Overview: configuration/index.md
+      - Configuring User Model: configuration/configuring-user-model.md
+  - API Documentation:
+      - Endpoints: endpoints.md
+  - Advanced:
+      - Email Templates: advanced/email-templates.md
 
 # Theme Configuration
 theme:
-    name: material
-    custom_dir: docs/overrides
-    logo: assets/images/logo.png
-    favicon: assets/images/favicon.ico
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.ico
 
-    # Theme Features
-    features:
-        # Navigation
-        - navigation.instant
-        - navigation.instant.prefetch
-        - navigation.instant.progress
-        - navigation.sections
-        - navigation.tabs
-        - navigation.tabs.sticky
-        - navigation.top
-        - navigation.tracking
-        - navigation.path
-        - navigation.footer
-        - toc.follow
+  # Theme Features
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - navigation.path
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
 
-        # Search
-        - search.suggest
-        - search.highlight
-        - search.share
-
-        # Content
-        - content.tabs.link
-        - content.code.copy
-        - content.code.annotate
-
-    # Theme Customization
-    language: en
-    palette:
-        # Light mode
-        - media: "(prefers-color-scheme: light)"
-          scheme: default
-          primary: light blue
-          accent: light blue
-          toggle:
-              icon: material/weather-sunny
-              name: Switch to dark mode
-
-        # Dark mode
-        - media: "(prefers-color-scheme: dark)"
-          scheme: slate
-          primary: light blue
-          accent: light blue
-          toggle:
-              icon: material/weather-night
-              name: Switch to light mode
+  # Theme Customization
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: light blue
+      accent: light blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: light blue
+      accent: light blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
 
 # Extensions
 markdown_extensions:
-    # Python Markdown
-    - admonition
-    - attr_list
-    - def_list
-    - footnotes
-    - md_in_html
-    - toc:
-          permalink: true
-          toc_depth: 3
-
-    # Python Markdown Extensions
-    - pymdownx.arithmatex:
-          generic: true
-    - pymdownx.betterem:
-          smart_enable: all
-    - pymdownx.caret
-    - pymdownx.details
-    - pymdownx.emoji:
-          emoji_index: !!python/name:material.extensions.emoji.twemoji
-          emoji_generator: !!python/name:material.extensions.emoji.to_svg
-    - pymdownx.highlight:
-          anchor_linenums: true
-          line_spans: __span
-          pygments_lang_class: true
-    - pymdownx.inlinehilite
-    - pymdownx.keys
-    - pymdownx.mark
-    - pymdownx.smartsymbols
-    - pymdownx.superfences:
-          custom_fences:
-              - name: mermaid
-                class: mermaid
-                format: !!python/name:pymdownx.superfences.fence_code_format
-    - pymdownx.tabbed:
-          alternate_style: true
-    - pymdownx.tasklist:
-          custom_checkbox: true
-    - pymdownx.tilde
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 # Plugins
 plugins:
-    - search:
-          separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-    - minify:
-          minify_html: true
-          minify_js: true
-          minify_css: true
-          htmlmin_opts:
-              remove_comments: true
-          cache_safe: true
-    - git-revision-date-localized:
-          enable_creation_date: true
-    - mkdocstrings:
-          default_handler: python
-          handlers:
-              python:
-                  paths: [src]
-                  options:
-                      show_source: true
-                      show_root_heading: true
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+      cache_safe: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: true
+            show_root_heading: true
 
 # Extra Configuration
 extra:
-    # Analytics
-    analytics:
-        provider: google
-        property: !ENV GOOGLE_ANALYTICS_KEY
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
 
-    # Social Links
-    social:
-        - icon: fontawesome/brands/github
-          link: https://github.com/waanverse
-        - icon: fontawesome/brands/twitter
-          link: https://twitter.com/waanverse
-        - icon: fontawesome/brands/linkedin
-          link: https://linkedin.com/company/waanverse
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/waanverse
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/waanverse
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/company/waanverse
 
-    # Cookie Consent
-    consent:
-        title: Cookie consent
-        description: >-
-            We use cookies to recognize your repeated visits and preferences, as well
-            as to measure the effectiveness of our documentation and whether users
-            find what they're searching for. With your consent, you're helping us to
-            make our documentation better.
-        actions:
-            - accept
-            - reject
-            - manage
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    actions:
+      - accept
+      - reject
+      - manage
 
-    # Disable generator notice
-    generator: false
+  generator: false
