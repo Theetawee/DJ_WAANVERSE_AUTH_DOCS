@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://dj-waanverse-auth.waanverse.com/</loc>
+         <lastmod>2025-08-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://dj-waanverse-auth.waanverse.com/endpoints/</loc>
+         <lastmod>2025-08-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://dj-waanverse-auth.waanverse.com/advanced/email-templates/</loc>
+         <lastmod>2025-08-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://dj-waanverse-auth.waanverse.com/configuration/</loc>
+         <lastmod>2025-08-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://dj-waanverse-auth.waanverse.com/configuration/configuring-user-model/</loc>
+         <lastmod>2025-08-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>

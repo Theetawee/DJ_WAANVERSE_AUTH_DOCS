@@ -1,0 +1,66 @@
+{# In docs/overrides/main.html #}
+{% extends "base.html" %}
+
+{% block htmltitle %}
+  <title>Dj Waanverse Auth | Waanverse Labs Inc. Internal REST authentication library.</title>
+  <meta name="description" content="dj_waanverse_auth is a state-of-the-art authentication package developed by Waanverse Labs Inc., meticulously designed to meet the modern security demands of both web and mobile applications. This comprehensive solution for REST authentication using JSON Web Tokens (JWT) ensures that your applications are secure, efficient, and scalable.">
+{% endblock %}
+
+{#% block announce %}
+  <div class="md-announce">
+    <div class="md-announce__inner md-grid md-typeset">
+      <div class="announce-content">
+        <p>
+          <span class="twemoji warning">
+            {% include ".icons/material/alert.svg" %}
+          </span>
+          <strong>Notice:</strong> Dj Waanverse Auth is currently in active development. All versions prior to 1.0.0 are considered pre-production and should not be used in live environments. We recommend using these early versions for testing and non-critical projects only. Please wait for the official 1.0.0 release for production use.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .md-announce {
+      background-color: #fff3cd;
+      border-bottom: 1px solid #ffeeba;
+      padding:0 20px;
+      width: 100%;
+      border-radius: 5px;
+    }
+    
+    .announce-content {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+    
+    .announce-content p {
+      margin: 0;
+      color: #856404;
+    }
+    
+    .twemoji.warning {
+      margin-right: 0.5rem;
+    }
+    
+    .twemoji.warning svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      fill: #856404;
+    }
+    
+    [data-md-color-scheme="slate"] .md-announce {
+      background-color: #382d1a;
+      border-bottom-color: #3d3225;
+    }
+    
+    [data-md-color-scheme="slate"] .announce-content p {
+      color: #ffe69c;
+    }
+    
+    [data-md-color-scheme="slate"] .twemoji.warning svg {
+      fill: #ffe69c;
+    }
+  </style>
+{% endblock %#}
